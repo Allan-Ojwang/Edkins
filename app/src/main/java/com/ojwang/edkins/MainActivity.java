@@ -7,7 +7,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
+import com.ojwang.edkins.Add.AddFragment;
+import com.ojwang.edkins.Home.HomeFragment;
+import com.ojwang.edkins.Profile.ProfileFragment;
+import com.ojwang.edkins.Search.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,30 +19,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ChipNavigationBar navBar = findViewById(R.id.bottomNav);
+        navBar.setItemSelected(R.id.homeBtn,true);
         replaceFragments(new HomeFragment());
 
-        //        NAVIGATION BAR
-        BottomNavigationView navBar = findViewById(R.id.bottomNav);
-        navBar.setOnItemSelectedListener(item -> {
+        //          NAVIGATION BAR LISTENER
+        navBar.setOnItemSelectedListener(i -> {
+                switch (i){
+                    case R.id.homeBtn:
+                        replaceFragments(new HomeFragment());
+                        break;
+                    case R.id.addBtn:
+                        replaceFragments(new AddFragment());
+                        break;
+                    case R.id.searchBtn:
+                        replaceFragments(new SearchFragment());
+                        break;
+                    case R.id.profileBtn:
+                        replaceFragments(new ProfileFragment());
+                        break;
+                }
 
-            switch (item.getItemId()){
-                case R.id.homeBtn:
-                    replaceFragments(new HomeFragment());
-                    break;
-                case R.id.addBtn:
-                    replaceFragments(new AddFragment());
-                    break;
-                case R.id.searchBtn:
-                    replaceFragments(new SearchFragment());
-                    break;
-                case R.id.profileBtn:
-                    replaceFragments(new ProfileFragment());
-                    break;
-            }
 
-            return true;
         });
     }
+
+    //          FRAGMENT REPLACING FUNCTION
     private void replaceFragments(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
