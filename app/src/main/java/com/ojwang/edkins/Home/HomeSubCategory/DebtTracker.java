@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.ojwang.edkins.R;
 
-public class Receivable extends AppCompatActivity {
+public class DebtTracker extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_receivable);
+        setContentView(R.layout.activity_debt_tracker);
     }
 }

@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
-import com.ojwang.edkins.Add.AddFragment;
+import com.ojwang.edkins.Setting.SettingFragment;
 import com.ojwang.edkins.Home.HomeFragment;
 import com.ojwang.edkins.Profile.ProfileFragment;
 import com.ojwang.edkins.Search.SearchFragment;
@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.homeBtn:
                         replaceFragments(new HomeFragment());
                         break;
-                    case R.id.addBtn:
-                        replaceFragments(new AddFragment());
+                    case R.id.settingBtn:
+                        replaceFragments(new SettingFragment());
                         break;
                     case R.id.searchBtn:
                         replaceFragments(new SearchFragment());

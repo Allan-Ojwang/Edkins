@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Add.AddFragment">
+    tools:context=".Setting.SettingFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Add fragment"
+        android:text="Setting fragment"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:gravity="center"/>

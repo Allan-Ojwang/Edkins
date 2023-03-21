@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:gravity="center"
-    tools:context=".Home.HomeSubCategory.Receivable">
+    tools:context=".Home.HomeSubCategory.DebtTracker">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/head_6"
+        android:text="@string/head_4"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="30sp"/>

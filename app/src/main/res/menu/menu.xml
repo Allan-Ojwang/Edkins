@@ -9,12 +9,6 @@
         app:cnb_iconColor = "@color/white"
         android:icon="@drawable/home"/>
     <item
-        android:id="@+id/addBtn"
-        android:title="Add"
-        app:cnb_backgroundColor="@color/black"
-        app:cnb_iconColor = "@color/white"
-        android:icon="@drawable/add"/>
-    <item
         android:id="@+id/searchBtn"
         android:title="Search"
         app:cnb_backgroundColor="@color/black"
@@ -26,4 +20,10 @@
         app:cnb_backgroundColor="@color/black"
         app:cnb_iconColor = "@color/white"
         android:icon="@drawable/profile" />
+    <item
+        android:id="@+id/settingBtn"
+        android:title="Setting"
+        app:cnb_backgroundColor="@color/black"
+        app:cnb_iconColor = "@color/white"
+        android:icon="@drawable/setting"/>
 </menu>

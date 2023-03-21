@@ -13,10 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ojwang.edkins.Home.HomeSubCategory.Payable;
+import com.ojwang.edkins.Home.HomeSubCategory.DebtTracker;
 import com.ojwang.edkins.Home.HomeSubCategory.Paybills;
-import com.ojwang.edkins.Home.HomeSubCategory.Receivable;
 import com.ojwang.edkins.Home.HomeSubCategory.StockIn;
+import com.ojwang.edkins.Home.HomeSubCategory.StockOut;
 import com.ojwang.edkins.Home.HomeSubCategory.ToOrder;
 import com.ojwang.edkins.Home.HomeSubCategory.Workers;
 import com.ojwang.edkins.Home.HomeFragRecyclerviewModel.DashBtnModel;
@@ -110,11 +110,11 @@ public class HomeFragment extends Fragment implements DashBtnListener {
         };
         imageResourseID = new int[]{
                 R.drawable.to_order,
-                R.drawable.stock_in,
                 R.drawable.paybills,
                 R.drawable.workers,
-                R.drawable.payables,
-                R.drawable.receivables,
+                R.drawable.debt_tracker,
+                R.drawable.stock_out,
+                R.drawable.stock_in,
         };
         for (int i =0; i<btnHeadings.length;i++){
             DashBtnModel dashBtnModel = new DashBtnModel(btnHeadings[i],imageResourseID[i]);
@@ -131,24 +131,24 @@ public class HomeFragment extends Fragment implements DashBtnListener {
                 startActivity(to_order_intent);
                 break;
             case 1:
-                Intent stock_in_intent = new Intent(getContext(), StockIn.class);
-                startActivity(stock_in_intent);
-                break;
-            case 2:
                 Intent paybills_intent = new Intent(getContext(), Paybills.class);
                 startActivity(paybills_intent);
                 break;
-            case 3:
+            case 2:
                 Intent workers_intent = new Intent(getContext(), Workers.class);
                 startActivity(workers_intent);
                 break;
+            case 3:
+                Intent debt_intent = new Intent(getContext(), DebtTracker.class);
+                startActivity(debt_intent);
+                break;
             case 4:
-                Intent payable_intent = new Intent(getContext(), Payable.class);
-                startActivity(payable_intent);
+                Intent stock_out_intent = new Intent(getContext(), StockOut.class);
+                startActivity(stock_out_intent);
                 break;
             case 5:
-                Intent receivable_intent = new Intent(getContext(), Receivable.class);
-                startActivity(receivable_intent);
+                Intent stock_in_intent = new Intent(getContext(), StockIn.class);
+                startActivity(stock_in_intent);
                 break;
         }
     }

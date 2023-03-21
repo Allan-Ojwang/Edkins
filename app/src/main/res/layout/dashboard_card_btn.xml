@@ -4,35 +4,39 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white">
-
+    android:background="@color/primaryBg">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/row1"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_margin="20dp"
+        android:layout_marginVertical="20dp"
+        android:layout_marginHorizontal="10dp"
         app:cardCornerRadius="20dp"
-        app:cardBackgroundColor="@color/DashBg">
+        app:cardBackgroundColor="@color/cardBg">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center">
+
             <ImageButton
                 android:id="@+id/dash_btn"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@color/DashBg"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:background="@color/cardBg"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
             <TextView
                 android:id="@+id/bnt_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/head_1"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_extrabold"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textAlignment="center"/>

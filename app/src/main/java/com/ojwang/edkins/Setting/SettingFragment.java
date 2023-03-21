@@ -1,4 +1,4 @@
-package com.ojwang.edkins.Add;
+package com.ojwang.edkins.Setting;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import com.ojwang.edkins.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AddFragment#newInstance} factory method to
+ * Use the {@link SettingFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddFragment extends Fragment {
+public class SettingFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class AddFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public AddFragment() {
+    public SettingFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class AddFragment extends Fragment {
      * @return A new instance of fragment AddFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AddFragment newInstance(String param1, String param2) {
-        AddFragment fragment = new AddFragment();
+    public static SettingFragment newInstance(String param1, String param2) {
+        SettingFragment fragment = new SettingFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class AddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add, container, false);
+        return inflater.inflate(R.layout.fragment_setting, container, false);
     }
 }

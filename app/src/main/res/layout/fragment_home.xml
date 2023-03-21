@@ -3,41 +3,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/primaryBg"
     tools:context=".Home.HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@color/DashBg"
+            android:background="@color/dashBg"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DASHBOARD"
-                android:textStyle="bold"
+                android:text="WELCOME"
+                android:fontFamily="@font/poppins_extrabold"
                 android:layout_marginTop="50dp"
                 android:layout_marginStart="20dp"
-                android:textColor="@color/black"
-                android:textSize="25sp"/>
+                android:textColor="@color/text"
+                android:textSize="25sp"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="50dp"
-            android:src="@drawable/logo"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dashRecycleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+
             tools:listitem="@layout/dashboard_card_btn">
 
         </androidx.recyclerview.widget.RecyclerView>

@@ -13,14 +13,14 @@
         android:theme="@style/splashScreenTheme"
         tools:targetApi="31">
         <activity
-            android:name=".Home.HomeSubCategory.Receivable"
+            android:name=".Home.HomeSubCategory.StockOut"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Home.HomeSubCategory.Payable"
+            android:name=".Home.HomeSubCategory.DebtTracker"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

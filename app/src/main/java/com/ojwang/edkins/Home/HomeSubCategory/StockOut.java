@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.ojwang.edkins.R;
 
-public class Payable extends AppCompatActivity {
+public class StockOut extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payable);
+        setContentView(R.layout.activity_stock_out);
     }
 }

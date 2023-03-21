@@ -14,12 +14,14 @@ import com.ojwang.edkins.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaybillAdapter extends RecyclerView.Adapter<PaybillAdapter.PaybillHolder>{
+public class PaybillAdapter extends RecyclerView.Adapter<PaybillAdapter.PaybillHolder> {
     private List<PaybillModel> paybillNotes = new ArrayList<>();
+    private OnItemClickListener listener;
+
     @NonNull
     @Override
     public PaybillHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.paybill_card,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.paybill_card, parent, false);
         return new PaybillHolder(view);
     }
 
@@ -34,11 +36,17 @@ public class PaybillAdapter extends RecyclerView.Adapter<PaybillAdapter.PaybillH
     public int getItemCount() {
         return paybillNotes.size();
     }
-    public void setPaybillNotes(List<PaybillModel> paybillNotes){
+
+    public void setPaybillNotes(List<PaybillModel> paybillNotes) {
         this.paybillNotes = paybillNotes;
         notifyDataSetChanged();
     }
-    class PaybillHolder extends RecyclerView.ViewHolder{
+
+    public PaybillModel getPaybillAt(int position) {
+        return paybillNotes.get(position);
+    }
+
+    class PaybillHolder extends RecyclerView.ViewHolder {
         private TextView tvTitle;
         private TextView tvBody;
 
@@ -46,8 +54,25 @@ public class PaybillAdapter extends RecyclerView.Adapter<PaybillAdapter.PaybillH
             super(itemView);
             tvTitle = itemView.findViewById(R.id.pay_heading);
             tvBody = itemView.findViewById(R.id.pay_body);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.OnClick(paybillNotes.get(position));
+                    }
+                }
+            });
 
         }
+    }
+
+    public interface OnItemClickListener {
+        void OnClick(PaybillModel paybillModel);
+    }
+
+    public void setOnClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
 }

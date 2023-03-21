@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Edkins</string>
     <string name="head_1">To Order</string>
-    <string name="head_2">Stock In</string>
-    <string name="head_3">Paybills</string>
-    <string name="head_4">Workers</string>
-    <string name="head_5">Payables</string>
-    <string name="head_6">Receivables</string>
+    <string name="head_2">Paybills</string>
+    <string name="head_3">Workers</string>
+    <string name="head_4">Debt Tracker</string>
+    <string name="head_5">Stock Out</string>
+    <string name="head_6">Stock In</string>
 
 </resources>
