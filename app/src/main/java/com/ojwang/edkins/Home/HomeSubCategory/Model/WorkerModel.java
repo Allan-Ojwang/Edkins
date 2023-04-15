@@ -6,28 +6,34 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "worker_table")
 public class WorkerModel {
     @PrimaryKey(autoGenerate = true)
-    private int id;
-    private String worker_name;
-    private int amount;
+    private int workerId;
+    private final String worker_name;
+    private final int number;
+    private final int id_number;
 
-    public WorkerModel(String worker_name, int amount) {
+    public WorkerModel(String worker_name, int number, int id_number) {
         this.worker_name = worker_name;
-        this.amount = amount;
+        this.number = number;
+        this.id_number = id_number;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getWorkerId() {
+        return workerId;
     }
 
-    public int getId() {
-        return id;
+    public void setWorkerId(int workerId) {
+        this.workerId = workerId;
     }
 
     public String getWorker_name() {
         return worker_name;
     }
 
-    public int getAmount() {
-        return amount;
+    public int getNumber() {
+        return number;
+    }
+
+    public int getId_number() {
+        return id_number;
     }
 }

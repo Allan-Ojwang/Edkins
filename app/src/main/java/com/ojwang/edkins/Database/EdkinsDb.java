@@ -9,17 +9,25 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.ojwang.edkins.Home.HomeSubCategory.Dao.CreditorDao;
+import com.ojwang.edkins.Home.HomeSubCategory.Dao.DebtorDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.PaybillDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.WorkerDao;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.CreditorModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.DebtorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.PaybillModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.WorkerModel;
 
-@Database(entities = {PaybillModel.class, WorkerModel.class},version = 1)
+import java.util.concurrent.FutureTask;
+
+@Database(entities = {PaybillModel.class, WorkerModel.class, CreditorModel.class, DebtorModel.class},version = 1,exportSchema = false)
 public abstract class EdkinsDb extends RoomDatabase {
     public static EdkinsDb instance;
 
     public abstract PaybillDao paybillDao();
     public abstract WorkerDao workersDao();
+    public abstract CreditorDao creditorDao();
+    public abstract DebtorDao debtorDao();
 
     public static synchronized EdkinsDb getInstance(Context context){
         if (instance==null){
@@ -29,25 +37,37 @@ public abstract class EdkinsDb extends RoomDatabase {
         }
         return instance;
     }
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback(){
+    private static final RoomDatabase.Callback roomCallback = new RoomDatabase.Callback(){
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             new PopulateDbAsyncTask(instance).execute();
         }
     };
-    private static class PopulateDbAsyncTask extends AsyncTask<Void,Void,Void> {
-        private PaybillDao paybillDao;
-        private WorkerDao workersDao;
+    private static class PopulateDbAsyncTask extends FutureTask<Void> {
 
-        private PopulateDbAsyncTask(EdkinsDb db){
-            workersDao = db.workersDao();
-            paybillDao = db.paybillDao();
+        private EdkinsDb mDb;
 
+        public PopulateDbAsyncTask(EdkinsDb db) {
+            super(() -> {
+                WorkerDao workersDao = db.workersDao();
+                PaybillDao paybillDao = db.paybillDao();
+                CreditorDao creditorDao = db.creditorDao();
+                DebtorDao debtorDao = db.debtorDao();
+                // Perform database operations here
+                return null;
+            });
+            mDb = db;
         }
-        @Override
-        protected Void doInBackground(Void... voids) {
-            return null;
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            mDb = null;
+            return mayInterruptIfRunning;
         }
     }
 }

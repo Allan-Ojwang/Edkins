@@ -61,7 +61,6 @@ public class AddPaybillTask extends BottomSheetDialogFragment {
 
                 if (evTitle.getText().toString().trim().isEmpty() || evBody.getText().toString().trim().isEmpty()) {
                     Toast.makeText(getContext(), "Please enter the title and body", Toast.LENGTH_SHORT).show();
-                    return;
                 } else {
                     if (id != -1) {
                         onPaybillInputListener.sendUpdateInput(id, title, body);

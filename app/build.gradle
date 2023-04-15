@@ -1,6 +1,10 @@
 plugins {
     id 'com.android.application'
 }
+configurations.implementation {
+    exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
+}
+
 android {
     namespace 'com.ojwang.edkins'
     compileSdk 33
@@ -25,19 +29,21 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+
     }
 }
 
 dependencies {
-    def lifecycle_version = "2.5.1"
-    def arch_version = "2.1.0"
-    def room_version = "2.4.3"
+    def lifecycle_version = "2.6.1"
+//    def arch_version = "2.1.0"
+    def room_version = '2.5.1'
+
+
 
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'com.github.ismaeldivita:chip-navigation-bar:1.4.0'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.20'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

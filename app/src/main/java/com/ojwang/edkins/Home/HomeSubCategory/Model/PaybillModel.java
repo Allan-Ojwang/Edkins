@@ -8,7 +8,7 @@ public class PaybillModel {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String title;
+    private final String title;
     public String body;
 
     public PaybillModel(String title, String body) {

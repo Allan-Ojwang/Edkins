@@ -53,7 +53,7 @@
                 android:id="@+id/paybillSearch"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
+                android:layout_marginVertical="30dp"
                 android:background="@drawable/search_view_bg"
                 app:queryHint="Search paybill"
                 app:iconifiedByDefault="false"/>
@@ -71,20 +71,19 @@
 
         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addfloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="20dp"
-            android:backgroundTint="@color/navBg"
-            android:clickable="true"
-            android:focusable="true"
-            app:srcCompat="@drawable/float_add"
-            android:contentDescription="Add Paybill"
-            tools:ignore="HardcodedText" />
-    </RelativeLayout
->
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addfloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="20dp"
+                android:backgroundTint="@color/accentBg"
+                android:clickable="true"
+                android:focusable="true"
+                app:srcCompat="@drawable/float_add"
+                android:contentDescription="Add Paybill"
+                tools:ignore="HardcodedText" />
+    </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

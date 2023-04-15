@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/primaryBg"
+    tools:context=".Home.HomeSubCategory.CreditorFragment">
+
+    <TextView
+        android:id="@+id/totalAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/poppins_extrabold"
+        android:text="KSH 200.00"
+        android:textColor="@color/text"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        tools:ignore="HardcodedText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/creditorRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/addfloatingActionButton"
+        android:layout_below="@+id/totalAmount"
+        android:layout_gravity="center"
+        android:background="@color/primaryBg"
+        tools:listitem="@layout/debt_tracker_card">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addfloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/accentBg"
+        android:clickable="true"
+        android:focusable="true"
+        app:srcCompat="@drawable/float_add"
+        android:contentDescription="Add creditor"
+        tools:ignore="HardcodedText" />
+</RelativeLayout>

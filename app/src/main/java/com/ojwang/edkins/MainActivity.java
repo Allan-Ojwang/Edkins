@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.ojwang.edkins.Setting.SettingFragment;
@@ -18,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder(StrictMode.getVmPolicy())
+                .detectLeakedClosableObjects()
+                .build());
         setContentView(R.layout.activity_main);
         ChipNavigationBar navBar = findViewById(R.id.bottomNav);
         navBar.setItemSelected(R.id.homeBtn,true);
@@ -25,22 +29,15 @@ public class MainActivity extends AppCompatActivity {
 
         //          NAVIGATION BAR LISTENER
         navBar.setOnItemSelectedListener(i -> {
-                switch (i){
-                    case R.id.homeBtn:
-                        replaceFragments(new HomeFragment());
-                        break;
-                    case R.id.settingBtn:
-                        replaceFragments(new SettingFragment());
-                        break;
-                    case R.id.searchBtn:
-                        replaceFragments(new SearchFragment());
-                        break;
-                    case R.id.profileBtn:
-                        replaceFragments(new ProfileFragment());
-                        break;
-                }
-
-
+            if (i == R.id.homeBtn){
+                replaceFragments(new HomeFragment());
+            } else if (i == R.id.settingBtn) {
+                replaceFragments(new SettingFragment());
+            } else if (i == R.id.searchBtn) {
+                replaceFragments(new SearchFragment());
+            } else if (i == R.id.profileBtn) {
+                replaceFragments(new ProfileFragment());
+            }
         });
     }
 

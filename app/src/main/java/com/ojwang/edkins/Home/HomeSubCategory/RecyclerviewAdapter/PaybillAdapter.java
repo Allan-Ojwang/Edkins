@@ -1,5 +1,6 @@
 package com.ojwang.edkins.Home.HomeSubCategory.RecyclerviewAdapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaybillAdapter extends RecyclerView.Adapter<PaybillAdapter.PaybillHolder> {
-    private List<PaybillModel> paybillNotes = new ArrayList<>();
-    private OnItemClickListener listener;
+    private static List<PaybillModel> paybillNotes = new ArrayList<>();
+    private static OnItemClickListener listener;
 
     @NonNull
     @Override
@@ -37,8 +38,9 @@ public class PaybillAdapter extends RecyclerView.Adapter<PaybillAdapter.PaybillH
         return paybillNotes.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setPaybillNotes(List<PaybillModel> paybillNotes) {
-        this.paybillNotes = paybillNotes;
+        PaybillAdapter.paybillNotes = paybillNotes;
         notifyDataSetChanged();
     }
 
@@ -46,9 +48,9 @@ public class PaybillAdapter extends RecyclerView.Adapter<PaybillAdapter.PaybillH
         return paybillNotes.get(position);
     }
 
-    class PaybillHolder extends RecyclerView.ViewHolder {
-        private TextView tvTitle;
-        private TextView tvBody;
+    public static class PaybillHolder extends RecyclerView.ViewHolder {
+        private final TextView tvTitle;
+        private final TextView tvBody;
 
         public PaybillHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,7 +74,7 @@ public class PaybillAdapter extends RecyclerView.Adapter<PaybillAdapter.PaybillH
     }
 
     public void setOnClickListener(OnItemClickListener listener) {
-        this.listener = listener;
+        PaybillAdapter.listener = listener;
     }
 
 }
