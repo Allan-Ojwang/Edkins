@@ -7,7 +7,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.ojwang.edkins.Home.HomeSubCategory.Model.CreditorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.DebtorModel;
 
 import java.util.List;
@@ -24,9 +23,11 @@ public interface DebtorDao {
     @Update
     void updateDebtor(DebtorModel debtorModel);
 
-    @Query("SELECT * FROM debtor_table ORDER BY pStatus ASC")
+    @Query("SELECT * FROM debtor_table WHERE pStatus = 0")
     LiveData<List<DebtorModel>> getAllDebtorData();
 
+    @Query("SELECT * FROM debtor_table WHERE pStatus = 1")
+    LiveData<List<DebtorModel>> getPaidDebtorData();
 
     @Query("SELECT IFNULL(SUM(amount), 0) as totalAmount FROM debtor_table WHERE pStatus = 0")
     LiveData<Float> getTotalAmount();

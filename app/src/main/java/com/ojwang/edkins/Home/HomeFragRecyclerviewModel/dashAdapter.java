@@ -55,7 +55,7 @@ public class dashAdapter extends RecyclerView.Adapter<dashAdapter.MyViewHolder> 
             btnDash = itemView.findViewById(R.id.dash_btn);
             tvheading = itemView.findViewById(R.id.bnt_heading);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            btnDash.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (dashBtnListener != null){

@@ -22,8 +22,10 @@ public interface CreditorDao {
     @Update
     void updateCreditor(CreditorModel creditorModel);
 
-    @Query("SELECT * FROM creditor_table ORDER BY pStatus ASC")
+    @Query("SELECT * FROM creditor_table WHERE pStatus = 0")
     LiveData<List<CreditorModel>> getAllCreditorData();
+    @Query("SELECT * FROM creditor_table WHERE pStatus = 1")
+    LiveData<List<CreditorModel>> getPaidCreditorData();
 
     @Query("SELECT IFNULL(SUM(amount), 0) as totalAmount FROM creditor_table WHERE pStatus = 0")
     LiveData<Float> getTotalAmount();

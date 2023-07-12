@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.ojwang.edkins.R;
 
+import java.util.Objects;
+
 public class AddWorkerTask extends BottomSheetDialogFragment {
     public static final String TAG = "WORKER_ADD_TASK";
     public static final String EDIT_TAG = "WORKER_ADD_TASK_EDITED";
@@ -26,7 +28,6 @@ public class AddWorkerTask extends BottomSheetDialogFragment {
 
         void sendUpdateInput(int id, String name, int id_number, int number);
     }
-
     public OnWorkerInputListener onWorkerInputListener;
 
     public EditText evName, evIdNo, evNo;
@@ -57,19 +58,21 @@ public class AddWorkerTask extends BottomSheetDialogFragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = evName.getText().toString();
-                int number = Integer.parseInt(evNo.getText().toString());
-                int idNo = Integer.parseInt(evIdNo.getText().toString());
 
                 if (evName.getText().toString().trim().isEmpty() || evIdNo.getText().toString().trim().isEmpty()) {
                     Toast.makeText(getContext(), "Please enter the name and id number", Toast.LENGTH_SHORT).show();
                 } else {
+                    String name = evName.getText().toString();
+                    int number = Integer.parseInt(evNo.getText().toString());
+                    int idNo = Integer.parseInt(evIdNo.getText().toString());
                     if (id != -1) {
                         onWorkerInputListener.sendUpdateInput(id,name,idNo, number);
-                        getDialog().dismiss();
+                        Toast.makeText(getContext(), "Workers' details updated successfully", Toast.LENGTH_SHORT).show();
+                        Objects.requireNonNull(getDialog()).dismiss();
+
                     } else {
                         onWorkerInputListener.sendInput(name,idNo,number);
-                        getDialog().dismiss();
+                        Objects.requireNonNull(getDialog()).dismiss();
                     }
                 }
             }

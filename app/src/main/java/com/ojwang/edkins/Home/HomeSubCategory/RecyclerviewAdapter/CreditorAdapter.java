@@ -11,13 +11,14 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ojwang.edkins.Home.HomeSubCategory.Model.CreditorModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.DebtorModel;
 import com.ojwang.edkins.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreditorAdapter extends RecyclerView.Adapter<CreditorAdapter.CreditorHolder> {
-    private static List<CreditorModel> creditorModels = new ArrayList<>();
+    private static List<CreditorModel>  creditorModels = new ArrayList<>();
     private static OnItemClickListener listener;
 
     @NonNull
@@ -32,7 +33,7 @@ public class CreditorAdapter extends RecyclerView.Adapter<CreditorAdapter.Credit
         CreditorModel currentCreditor = creditorModels.get(position);
         holder.name.setText(currentCreditor.getName());
         holder.reason.setText(currentCreditor.getReason());
-        holder.amount.setText(String.valueOf(currentCreditor.getAmount()));
+        holder.amount.setText(String.format("KSH %s", currentCreditor.getAmount()));
 
 
         // check the pstatus and set the color of the TextView accordingly
@@ -70,30 +71,21 @@ public class CreditorAdapter extends RecyclerView.Adapter<CreditorAdapter.Credit
             reason= itemView.findViewById(R.id.cd_db_reason);
             amount = itemView.findViewById(R.id.cd_db_amount);
 
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    int position = getAdapterPosition();
-                    return false;
-                }
-            });
-
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.OnLongClick(creditorModels.get(position),itemView);
+                        listener.OnClick(creditorModels.get(position),position);
                     }
                 }
             });
         }
     }
-    public interface OnItemClickListener {
-        void OnLongClick(CreditorModel creditorModel, View view);
+    public interface OnItemClickListener{
+        void OnClick(CreditorModel creditorModel, int position);
     }
-    public void setOnLongClickListener(OnItemClickListener listener) {
+    public void setOnClickListener(OnItemClickListener listener) {
         CreditorAdapter.listener = listener;
     }
 }

@@ -1,18 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".Home.HomeSubCategory.StockIn">
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginBottom="60dp"
+        android:background="@color/dashBg"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dashboard"
+            android:fontFamily="@font/poppins_extrabold"
+            android:layout_marginTop="80dp"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/text"
+            android:textSize="25sp"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/oldStockBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/head_6"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="30sp"/>
+        android:layout_gravity="center"
+        android:layout_marginVertical="60dp"
+        android:background="@drawable/old_stock"
+        android:contentDescription="Back"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        tools:ignore="HardcodedText" />
+
+    <ImageButton
+        android:id="@+id/newStockBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="60dp"
+        android:background="@drawable/old_stock"
+        android:contentDescription="Back"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        tools:ignore="HardcodedText" />
 
 </LinearLayout>

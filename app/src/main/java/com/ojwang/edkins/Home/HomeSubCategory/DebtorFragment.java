@@ -1,19 +1,15 @@
 package com.ojwang.edkins.Home.HomeSubCategory;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -24,11 +20,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ojwang.edkins.Home.ConfirmAlertDialog;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.DebtorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.RecyclerviewAdapter.DebtorAdapter;
-import com.ojwang.edkins.Home.HomeSubCategory.RecyclerviewAdapter.PaybillAdapter;
 import com.ojwang.edkins.R;
 import com.ojwang.edkins.ViewModel.MainViewModel;
 
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -96,27 +90,23 @@ public class DebtorFragment extends Fragment  {
             }
         }).attachToRecyclerView(recyclerView);
 
-        debtorAdapter.setOnLongClickListener(new DebtorAdapter.OnItemClickListener() {
+
+        debtorAdapter.setOnClickListener(new DebtorAdapter.OnItemClickListener() {
             @Override
-            public void OnLongClick(DebtorModel debtorModel, View view1) {
-                final int position = recyclerView.getChildAdapterPosition(view1);
-                ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(getActivity(), "Are you sure you want to delete?", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case DialogInterface.BUTTON_POSITIVE:
-                                mainViewModel.deleteDebtor(debtorAdapter.getDebtorAt(position));
-                                //Delete
-                                break;
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                //Do nothing
-                                break;
-                        }
-                    }
-                });
-                confirmAlertDialog.showDialog();
+            public void OnClick(DebtorModel debtorModel, int position) {
+                AddDebtorTask addDebtorTask = new AddDebtorTask();
+                Bundle bundle = new Bundle();
+                bundle.putInt("ID",debtorModel.getId());
+                bundle.putString("NAME",debtorModel.getName());
+                bundle.putString("REASON",debtorModel.getReason());
+                bundle.putInt("AMOUNT",debtorModel.getAmount());
+                bundle.putBoolean("STATUS",debtorModel.ispStatus());
+                bundle.putInt("ADAPTERPOS",position);
+                addDebtorTask.setArguments(bundle);
+                addDebtorTask.show(getParentFragmentManager(),AddDebtorTask.EDIT_TAG);
             }
         });
+
 
 
     }

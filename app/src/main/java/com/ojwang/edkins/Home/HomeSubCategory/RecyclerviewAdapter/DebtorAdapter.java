@@ -33,7 +33,7 @@ public class DebtorAdapter extends RecyclerView.Adapter<DebtorAdapter.DebtorHold
         DebtorModel currentDebtor = debtorModels.get(position);
         holder.name.setText(currentDebtor.getName());
         holder.reason.setText(currentDebtor.getReason());
-        holder.amount.setText(String.valueOf(currentDebtor.getAmount()));
+        holder.amount.setText(String.format("KSH %s", currentDebtor.getAmount()));
 
 
         // check the pstatus and set the color of the TextView accordingly
@@ -71,30 +71,22 @@ public class DebtorAdapter extends RecyclerView.Adapter<DebtorAdapter.DebtorHold
             reason= itemView.findViewById(R.id.cd_db_reason);
             amount = itemView.findViewById(R.id.cd_db_amount);
 
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    int position = getAdapterPosition();
-                    return false;
-                }
-            });
-
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.OnLongClick(debtorModels.get(position),itemView);
+                        listener.OnClick(debtorModels.get(position),position);
                     }
                 }
             });
+
         }
     }
-    public interface OnItemClickListener {
-        void OnLongClick(DebtorModel debtorModel, View view);
+    public interface OnItemClickListener{
+        void OnClick(DebtorModel debtorModel, int position);
     }
-    public void setOnLongClickListener(OnItemClickListener listener) {
+    public void setOnClickListener(OnItemClickListener listener) {
         DebtorAdapter.listener = listener;
     }
 }

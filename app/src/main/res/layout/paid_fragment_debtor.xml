@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/primaryBg"
+    tools:context=".Home.HomeSubCategory.PaidDebtorFragment">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/PaidDebtorRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        android:background="@color/primaryBg"
+        tools:listitem="@layout/debt_tracker_card">
+
+    </androidx.recyclerview.widget.RecyclerView>
+</RelativeLayout>

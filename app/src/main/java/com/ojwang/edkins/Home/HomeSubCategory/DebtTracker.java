@@ -1,8 +1,11 @@
 package com.ojwang.edkins.Home.HomeSubCategory;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,28 +28,54 @@ public class DebtTracker extends AppCompatActivity  implements AddCreditorTask.O
 
     private MainViewModel mainViewModel;
 
-    public String cred_Name,debt_Name,debt_Reason,cred_Reason;
-    public int cred_Amount,debt_Amount;
+    public String Name,Reason;
+    public int Amount,Id;
 
     @Override
     public void sendInputCreditor(String name, String reason, int amount) {
-        cred_Name = name;
-        cred_Reason = reason;
-        cred_Amount = amount;
-        CreditorModel creditorModel = new CreditorModel(cred_Name,cred_Reason,cred_Amount);
-        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        Name = name;
+        Reason = reason;
+        Amount = amount;
+        CreditorModel creditorModel = new CreditorModel(Name,Reason,Amount);
         mainViewModel.insertCreditor(creditorModel);
     }
 
     @Override
+    public void sendUpdateInputCreditor(int id,String name, String reason, int amount,Boolean status) {
+        Id = id;
+        Name = name;
+        Reason = reason;
+        Amount = amount;
+        CreditorModel creditorModel = new CreditorModel(Name,Reason,Amount);
+        creditorModel.setId(Id);
+        creditorModel.setpStatus(status);
+        mainViewModel.updateCreditor(creditorModel);
+    }
+
+
+    @Override
     public void sendInputDebtor(String name, String reason, int amount) {
-        debt_Name = name;
-        debt_Reason = reason;
-        debt_Amount = amount;
-        DebtorModel debtorModel = new DebtorModel(debt_Name,debt_Reason,debt_Amount);
-        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        Name = name;
+        Reason = reason;
+        Amount = amount;
+        DebtorModel debtorModel = new DebtorModel(Name,Reason,Amount);
         mainViewModel.insertDebtor(debtorModel);
     }
+
+    @Override
+    public void sendUpdateInputDebtor(int id, String name, String reason, int amount, Boolean status) {
+        Id = id;
+        Name = name;
+        Reason = reason;
+        Amount = amount;
+        DebtorModel debtorModel = new DebtorModel(Name,Reason,Amount);
+        debtorModel.setId(Id);
+        debtorModel.setpStatus(status);
+        mainViewModel.updateDebtor(debtorModel);
+
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +87,38 @@ public class DebtTracker extends AppCompatActivity  implements AddCreditorTask.O
         debtTrackerViewPagerAdapter = new DebtTrackerViewPagerAdapter(this);
         viewPager2.setAdapter(debtTrackerViewPagerAdapter);
         ImageButton backBtn = findViewById(R.id.backBtn);
+        ImageButton menuButton = findViewById(R.id.menu_button);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
+
+
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+        backBtn.setOnClickListener(v -> finish());
+
+        menuButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                finish();
+
+                PopupMenu popupMenu = new PopupMenu(DebtTracker.this, menuButton);
+                
+                popupMenu.getMenuInflater().inflate(R.menu.debt_menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == R.id.menuPaid){
+                            Intent intentPaid = new Intent(DebtTracker.this, PaidDebt.class);
+                            startActivity(intentPaid);
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+
             }
         });
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -89,6 +143,8 @@ public class DebtTracker extends AppCompatActivity  implements AddCreditorTask.O
                 Objects.requireNonNull(tabLayout.getTabAt(position)).select();
             }
         });
+
+
     }
 
 }

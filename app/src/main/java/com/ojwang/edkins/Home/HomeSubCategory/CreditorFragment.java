@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,7 +21,6 @@ import com.ojwang.edkins.Home.ConfirmAlertDialog;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.CreditorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.DebtorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.RecyclerviewAdapter.CreditorAdapter;
-import com.ojwang.edkins.Home.HomeSubCategory.RecyclerviewAdapter.DebtorAdapter;
 import com.ojwang.edkins.R;
 import com.ojwang.edkins.ViewModel.MainViewModel;
 
@@ -92,25 +90,19 @@ public class CreditorFragment extends Fragment  {
             }
         }).attachToRecyclerView(recyclerView);
 
-        creditorAdapter.setOnLongClickListener(new CreditorAdapter.OnItemClickListener() {
+        creditorAdapter.setOnClickListener(new CreditorAdapter.OnItemClickListener() {
             @Override
-            public void OnLongClick(CreditorModel creditorModel, View view1) {
-                final int position = recyclerView.getChildAdapterPosition(view1);
-                ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(getActivity(), "Are you sure you want to delete?", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case DialogInterface.BUTTON_POSITIVE:
-                                mainViewModel.deleteCreditor(creditorAdapter.getCreditorAt(position));
-                                //Delete
-                                break;
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                //Do nothing
-                                break;
-                        }
-                    }
-                });
-                confirmAlertDialog.showDialog();
+            public void OnClick(CreditorModel creditorModel, int position) {
+                AddCreditorTask addCreditorTask = new AddCreditorTask();
+                Bundle bundle = new Bundle();
+                bundle.putInt("ID",creditorModel.getId());
+                bundle.putString("NAME",creditorModel.getName());
+                bundle.putString("REASON",creditorModel.getReason());
+                bundle.putInt("AMOUNT",creditorModel.getAmount());
+                    bundle.putBoolean("STATUS",creditorModel.ispStatus());
+                bundle.putInt("ADAPTERPOS",position);
+                addCreditorTask.setArguments(bundle);
+                addCreditorTask.show(getParentFragmentManager(),AddCreditorTask.EDIT_TAG);
             }
         });
 

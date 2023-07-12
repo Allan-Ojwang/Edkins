@@ -16,14 +16,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/backBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_gravity="start|top"
+                android:layout_margin="20dp"
                 android:background="@drawable/back"
                 android:contentDescription="Back"
                 android:minWidth="48dp"
@@ -31,13 +31,27 @@
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Debt Tracker"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_weight="01"
+                android:textAlignment="center"
                 android:fontFamily="@font/poppins_extrabold"
-                android:layout_marginStart="80dp"
                 android:textColor="@color/text"
                 android:textSize="18sp"
+                tools:ignore="HardcodedText" />
+
+            <ImageButton
+                android:id="@+id/menu_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/menu_button"
+                android:contentDescription="menu"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
                 tools:ignore="HardcodedText" />
 
         </LinearLayout>
@@ -63,21 +77,25 @@
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/dashBg">
+                android:background="@color/dashBg"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Debtor"
+                    app:tabTextAppearance="@style/TabTextAppearance"
                     tools:ignore="HardcodedText" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Creditor"
+                    app:tabTextAppearance="@style/TabTextAppearance"
                     tools:ignore="HardcodedText" />
 
             </com.google.android.material.tabs.TabLayout>
+
 
 
             <androidx.viewpager2.widget.ViewPager2

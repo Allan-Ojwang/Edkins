@@ -1,7 +1,6 @@
 package com.ojwang.edkins.ViewModel;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -10,6 +9,9 @@ import androidx.lifecycle.LiveData;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.CreditorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.DebtorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.PaybillModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderListModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.WorkerDebtModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.WorkerModel;
 import com.ojwang.edkins.Repo.MainRepo;
 
@@ -20,15 +22,20 @@ public class MainViewModel extends AndroidViewModel {
     private final LiveData<List<PaybillModel>> paybillData;
     private final LiveData<List<WorkerModel>> workerData;
     private final LiveData<List<CreditorModel>> creditorData;
-
+    private final LiveData<List<CreditorModel>> paidCreditorData;
+    private final LiveData<List<ToOrderModel>> toOrderData;
     private final LiveData<List<DebtorModel>> debtorData;
+    private final LiveData<List<DebtorModel>> paidDebtorData;
     public MainViewModel(@NonNull Application application) {
         super(application);
         mainRepo = new MainRepo(application);
         paybillData= mainRepo.getPaybillNotes();
         workerData= mainRepo.getWorkerNotes();
         creditorData = mainRepo.getCreditorNotes();
+        paidCreditorData = mainRepo.getPaidCreditorNotes();
         debtorData = mainRepo.getDebtorNotes();
+        paidDebtorData = mainRepo.getPaidDebtorNotes();
+        toOrderData = mainRepo.getToOrderNotes();
     }
 
     public void insertPaybill (PaybillModel paybillModel){
@@ -43,6 +50,10 @@ public class MainViewModel extends AndroidViewModel {
     public LiveData<List<PaybillModel>> getPaybillData(){
         return paybillData;
     }
+    public LiveData<List<PaybillModel>> searchPaybill(String query){
+        return mainRepo.searchPaybill(query);
+    }
+
 
     public void insertWorker (WorkerModel workerModel){
         mainRepo.insertWorker(workerModel);
@@ -57,6 +68,24 @@ public class MainViewModel extends AndroidViewModel {
         return workerData;
     }
 
+    public void insertWorkerDebt (WorkerDebtModel workerDebtModel){
+        mainRepo.insertWorkerDebt(workerDebtModel);
+    }
+    public void updateWorkerDebt (WorkerDebtModel workerDebtModel){
+        mainRepo.updateWorkerDebt(workerDebtModel);
+    }
+    public void deleteWorkerDebt (WorkerDebtModel workerDebtModel){
+        mainRepo.deleteWorkerDebt(workerDebtModel);
+    }
+
+    public LiveData<List<WorkerDebtModel>> getWorkerDebtData(int workerId){
+        return mainRepo.getWorkerDebtData(workerId);
+    }
+
+    public LiveData<Float>getLoanTotal(){return mainRepo.getLoanTotal();}
+
+    public LiveData<Float>getSavingTotal(){return mainRepo.getSavingTotal();}
+
     public void insertCreditor (CreditorModel creditorModel){
         mainRepo.insertCreditor(creditorModel);
     }
@@ -68,6 +97,9 @@ public class MainViewModel extends AndroidViewModel {
     }
     public LiveData<List<CreditorModel>> getCreditorData() {
         return creditorData;
+    }
+    public LiveData<List<CreditorModel>> getPaidCreditorData() {
+        return paidCreditorData;
     }
     public LiveData<Float>getCreditorTotal(){return mainRepo.getCreditorTotal();}
 
@@ -83,8 +115,28 @@ public class MainViewModel extends AndroidViewModel {
     public LiveData<List<DebtorModel>> getDebtorData() {
         return debtorData;
     }
+    public LiveData<List<DebtorModel>> getPaidDebtorData() {
+        return paidDebtorData;
+    }
     public LiveData<Float>getDebtorTotal(){return mainRepo.getDebtorTotal();}
 
 
+    public LiveData<List<ToOrderModel>> getToOrderData(){return toOrderData;}
+    public void insertToOrder (ToOrderModel toOrderModel){mainRepo.insertOrder(toOrderModel);}
+    public void updateToOrder (ToOrderModel toOrderModel){mainRepo.updateOrder(toOrderModel);}
+    public void deleteToOrder (ToOrderModel toOrderModel){mainRepo.deleteOrder(toOrderModel);}
 
+    public void insertToOrderList (ToOrderListModel toOrderListModel){mainRepo.insertOrderList(toOrderListModel);}
+    public void updateToOrderList (ToOrderListModel toOrderListModel){mainRepo.updateOrderList(toOrderListModel);}
+    public void deleteToOrderList (ToOrderListModel toOrderListModel){mainRepo.deleteOrderList(toOrderListModel);}
+
+    public LiveData<List<ToOrderListModel>> getToOrderListData(int orderId){
+        return mainRepo.getToOrderListData(orderId);
+    }
+    public LiveData<Integer> getNumbOfOrder(int orderId){
+        return mainRepo.getNumbOfOrder(orderId);
+    }
+    public LiveData<Integer> getNumbOfOrderStatus(int orderId){
+        return mainRepo.getNumbOfOrderStatus(orderId);
+    }
 }

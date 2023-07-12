@@ -15,7 +15,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="25dp"
-        android:layout_marginBottom="10dp"
         android:fontFamily="@font/poppins_extrabold"
         android:text="KSH 200.00"
         android:textColor="@color/text"
@@ -29,7 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/addfloatingActionButton"
         android:layout_below="@+id/total_Amount"
         android:layout_gravity="center"
         tools:listitem="@layout/debt_tracker_card">

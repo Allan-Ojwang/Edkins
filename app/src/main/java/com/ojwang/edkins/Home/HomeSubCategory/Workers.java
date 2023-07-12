@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,30 +21,21 @@ import java.util.List;
 
 public class Workers extends AppCompatActivity implements AddWorkerTask.OnWorkerInputListener{
 
-    public String Name;
-    public int Id, IdNo, Number;
+    public String workerName;
+    public int workerId, IdNo, Number, adapPos;
 
     private MainViewModel mainViewModel;
 
     @Override
     public void sendInput(String name, int id_number, int number) {
-        Name = name;
-        IdNo = id_number;
-        Number = number;
-        WorkerModel workerModel = new WorkerModel(Name,Number,IdNo);
+
+        WorkerModel workerModel = new WorkerModel(name,number,id_number);
         mainViewModel.insertWorker(workerModel);
 
     }
 
     @Override
     public void sendUpdateInput(int id, String name, int id_number, int number) {
-        Id = id;
-        Name = name;
-        IdNo = id_number;
-        Number = number;
-        WorkerModel workerModel = new WorkerModel(Name,Number,IdNo);
-        workerModel.setWorkerId(Id);
-        mainViewModel.updateWorker(workerModel);
 
     }
 
@@ -78,15 +71,20 @@ public class Workers extends AppCompatActivity implements AddWorkerTask.OnWorker
 
         workerAdapter.setOnClickListener(new WorkerAdapter.OnItemClickListener() {
             @Override
-            public void OnClick(WorkerModel workerModel) {
-                AddWorkerTask addWorkerTask = new AddWorkerTask();
-                Bundle bundle = new Bundle();
-                bundle.putInt("ID",workerModel.getWorkerId());
-                bundle.putString("NAME",workerModel.getWorker_name());
-                bundle.putInt("NUMBER",workerModel.getNumber());
-                bundle.putInt("IdNUMBER",workerModel.getId_number());
-                addWorkerTask.setArguments(bundle);
-                addWorkerTask.show(getSupportFragmentManager(),AddWorkerTask.EDIT_TAG);
+            public void OnClick(WorkerModel workerModel, int position) {
+                workerName = workerModel.getWorker_name();
+                adapPos = position;
+                workerId = workerModel.getWorkerId();
+                IdNo = workerModel.getId_number();
+                Number = workerModel.getNumber();
+                Intent intent = new Intent(Workers.this, WorkerDebt.class);
+                intent.putExtra("workerId",workerId);
+                intent.putExtra("workerName",workerName);
+                intent.putExtra("IDNO",IdNo);
+                intent.putExtra("NUMBER",Number);
+                intent.putExtra("adapPos",adapPos);
+                startActivity(intent);
+
             }
         });
     }

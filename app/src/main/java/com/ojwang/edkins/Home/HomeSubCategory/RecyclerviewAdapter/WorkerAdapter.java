@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.ojwang.edkins.Home.HomeSubCategory.Model.PaybillModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.WorkerModel;
 import com.ojwang.edkins.R;
 
@@ -44,6 +45,11 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.WorkerHold
         WorkerAdapter.workerNotes = workerNotes;
         notifyDataSetChanged();
     }
+
+    public WorkerModel getWorkerAt(int position) {
+        return workerNotes.get(position);
+    }
+
     public static class WorkerHolder extends RecyclerView.ViewHolder{
 
         private final TextView tvName;
@@ -60,7 +66,7 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.WorkerHold
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.OnClick(workerNotes.get(position));
+                        listener.OnClick(workerNotes.get(position),position);
                     }
                 }
             });
@@ -68,7 +74,7 @@ public class WorkerAdapter extends RecyclerView.Adapter<WorkerAdapter.WorkerHold
         }
     }
     public interface OnItemClickListener {
-        void OnClick(WorkerModel workerModel);
+        void OnClick(WorkerModel workerModel, int position);
     }
 
     public void setOnClickListener(OnItemClickListener listener) {

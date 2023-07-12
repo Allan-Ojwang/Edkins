@@ -5,17 +5,25 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "worker_debt_table", foreignKeys = @ForeignKey(entity = WorkerModel.class, parentColumns = "workerId",childColumns = "workerid",onDelete = ForeignKey.CASCADE   ))
+@Entity(tableName = "worker_debt_table",
+        foreignKeys = @ForeignKey(entity = WorkerModel.class,
+                parentColumns = "workerId",
+                childColumns = "workerid",
+                onDelete = ForeignKey.CASCADE))
 public class WorkerDebtModel {
     @PrimaryKey(autoGenerate = true)
     private int debtId;
     private final String date;
+    private final String dStatus;
     private final int amount;
+
     @ColumnInfo(name = "workerid", index = true)
     private final int workerId;
 
-    public WorkerDebtModel(String date, int amount, int workerId) {
+
+    public WorkerDebtModel(String date, String dStatus, int amount, int workerId) {
         this.date = date;
+        this.dStatus = dStatus;
         this.amount = amount;
         this.workerId = workerId;
     }
@@ -30,6 +38,10 @@ public class WorkerDebtModel {
 
     public String getDate() {
         return date;
+    }
+
+    public String getDStatus() {
+        return dStatus;
     }
 
     public int getAmount() {

@@ -9,10 +9,14 @@ import com.ojwang.edkins.Database.EdkinsDb;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.CreditorDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.DebtorDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.PaybillDao;
+import com.ojwang.edkins.Home.HomeSubCategory.Dao.ToOrderDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.WorkerDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.CreditorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.DebtorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.PaybillModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderListModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.WorkerDebtModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.WorkerModel;
 
 import java.util.List;
@@ -24,59 +28,73 @@ public class MainRepo {
     private final WorkerDao workerDao;
     LiveData<List<WorkerModel>> workerData;
 
+    private final LiveData<Float> loanTotal;
+
+    private final LiveData<Float> savingTotal;
+
     private final CreditorDao creditorDao;
     LiveData<List<CreditorModel>> creditorData;
+    LiveData<List<CreditorModel>> paidCreditorData;
     private final LiveData<Float> creditorTotal;
 
 
     private final DebtorDao debtorDao;
     LiveData<List<DebtorModel>> debtorData;
+    LiveData<List<DebtorModel>> paidDebtorData;
     private final LiveData<Float> debtorTotal;
 
-    public MainRepo(Application application){
+    private final ToOrderDao toOrderDao;
+    LiveData<List<ToOrderModel>> toOrderData;
+
+
+    public MainRepo(Application application) {
         EdkinsDb db = EdkinsDb.getInstance(application);
         paybillDao = db.paybillDao();
         paybillData = paybillDao.getPaybillData();
         workerDao = db.workersDao();
         workerData = workerDao.getWorkerData();
+        loanTotal = workerDao.getTotalLoan();
+        savingTotal = workerDao.getTotalSaving();
         creditorDao = db.creditorDao();
         creditorData = creditorDao.getAllCreditorData();
+        paidCreditorData = creditorDao.getPaidCreditorData();
         creditorTotal = creditorDao.getTotalAmount();
-        debtorDao=db.debtorDao();
+        debtorDao = db.debtorDao();
         debtorData = debtorDao.getAllDebtorData();
-        debtorTotal= debtorDao.getTotalAmount();
-
-
+        paidDebtorData = debtorDao.getPaidDebtorData();
+        debtorTotal = debtorDao.getTotalAmount();
+        toOrderDao = db.toOrderDao();
+        toOrderData = toOrderDao.getToOrderData();
     }
 
-//    PAYBILL NOTE
-    public void insertPaybill(PaybillModel paybillModel){
-       new InsertPaybillFutureTask(paybillDao, paybillModel).execute();
+    //    PAYBILL NOTE
+    public void insertPaybill(PaybillModel paybillModel) {
+        new InsertPaybillFutureTask(paybillDao, paybillModel).execute();
     }
 
-    public void updatePaybill(PaybillModel paybillModel){
-        new UpdatePaybillAsyncTask(paybillDao).execute(paybillModel);
+    public void updatePaybill(PaybillModel paybillModel) {
+        new UpdatePaybillFutureTask(paybillDao,paybillModel).execute();
     }
 
-    public void deletePaybill(PaybillModel paybillModel){
-        new DeletePaybillAsyncTask(paybillDao).execute(paybillModel);
+    public void deletePaybill(PaybillModel paybillModel) {
+        new DeletePaybillFutureTask(paybillDao,paybillModel).execute();
     }
 
-    public  LiveData<List<PaybillModel>> getPaybillNotes(){
+    public LiveData<List<PaybillModel>> getPaybillNotes() {
         return paybillData;
     }
 
+    public LiveData<List<PaybillModel>> searchPaybill(String query){
+        return paybillDao.searchPaybill(query);
+    }
+
     private static class InsertPaybillFutureTask extends FutureTask<Void> {
-        private final PaybillDao paybillDao;
-        private final PaybillModel paybillModel;
 
         private InsertPaybillFutureTask(PaybillDao paybillDao, PaybillModel paybillModel) {
             super(() -> {
                 paybillDao.insertPaybill(paybillModel);
                 return null;
             });
-            this.paybillDao = paybillDao;
-            this.paybillModel = paybillModel;
         }
 
         public void execute() {
@@ -89,201 +107,523 @@ public class MainRepo {
         }
     }
 
-    private static class UpdatePaybillAsyncTask extends AsyncTask<PaybillModel,Void,Void> {
-        private final PaybillDao paybillDao;
+    private static class UpdatePaybillFutureTask extends FutureTask<Void> {
 
-        private UpdatePaybillAsyncTask(PaybillDao paybillDao){
-            this.paybillDao= paybillDao;
+        private UpdatePaybillFutureTask(PaybillDao paybillDao, PaybillModel paybillModel) {
+            super(() -> {
+                paybillDao.updatePaybill(paybillModel);
+                return null;
+            });
+
         }
-        @Override
-        protected Void doInBackground(PaybillModel... paybillModels) {
-            paybillDao.updatePaybill(paybillModels[0]);
-            return null;
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
         }
     }
-    private static class DeletePaybillAsyncTask extends AsyncTask<PaybillModel,Void,Void> {
-        private final PaybillDao paybillDao;
 
-        private DeletePaybillAsyncTask(PaybillDao paybillDao){
-            this.paybillDao= paybillDao;
+    private static class DeletePaybillFutureTask extends FutureTask<Void> {
+
+        private DeletePaybillFutureTask(PaybillDao paybillDao, PaybillModel paybillModel) {
+            super(() -> {
+                paybillDao.deletePaybill(paybillModel);
+                return null;
+            });
+
         }
-        @Override
-        protected Void doInBackground(PaybillModel... paybillModels) {
-            paybillDao.deletePaybill(paybillModels[0]);
-            return null;
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
         }
     }
+
 
     //    WORKERS NOTE
-    public void insertWorker(WorkerModel workerModel){
-        new InsertWorkerAsyncTask(workerDao).execute(workerModel);
+    public void insertWorker(WorkerModel workerModel) {
+        new InsertWorkerFutureTask(workerDao,workerModel).execute();
     }
 
-    public void updateWorker(WorkerModel workerModel){
-        new UpdateWorkerAsyncTask(workerDao).execute(workerModel);
+    public void updateWorker(WorkerModel workerModel) {
+        new UpdateWorkerFutureTask(workerDao,workerModel).execute();
     }
 
-    public void deleteWorker(WorkerModel workerModel){
-        new DeleteWorkerAsyncTask(workerDao).execute(workerModel);
+    public void deleteWorker(WorkerModel workerModel) {
+        new DeleteWorkerFutureTask(workerDao,workerModel).execute();
     }
 
-    public  LiveData<List<WorkerModel>> getWorkerNotes(){
+    public LiveData<List<WorkerModel>> getWorkerNotes() {
         return workerData;
     }
 
-    private static class InsertWorkerAsyncTask extends AsyncTask<WorkerModel,Void,Void> {
-        private final WorkerDao workerDao;
 
-        private InsertWorkerAsyncTask(WorkerDao workerDao){
-            this.workerDao= workerDao;
+    private static class InsertWorkerFutureTask extends FutureTask<Void>{
+
+        private InsertWorkerFutureTask(WorkerDao workerDao, WorkerModel workerModel) {
+            super(() -> {
+                workerDao.insertWorker(workerModel);
+                return null;
+            });
+
         }
-        @Override
-        protected Void doInBackground(WorkerModel... workerModels) {
-            workerDao.insertWorker(workerModels[0]);
-            return null;
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
         }
     }
-    private static class UpdateWorkerAsyncTask extends AsyncTask<WorkerModel,Void,Void> {
-        private final WorkerDao workerDao;
 
-        private UpdateWorkerAsyncTask(WorkerDao workerDao){
-            this.workerDao= workerDao;
+    private static class UpdateWorkerFutureTask extends FutureTask<Void>{
+
+        private UpdateWorkerFutureTask(WorkerDao workerDao, WorkerModel workerModel) {
+            super(() -> {
+                workerDao.updateWorker(workerModel);
+                return null;
+            });
+
         }
-        @Override
-        protected Void doInBackground(WorkerModel... workerModels) {
-            workerDao.updateWorker(workerModels[0]);
-            return null;
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
         }
     }
-    private static class DeleteWorkerAsyncTask extends AsyncTask<WorkerModel,Void,Void> {
-        private final WorkerDao workerDao;
 
-        private DeleteWorkerAsyncTask(WorkerDao workerDao){
-            this.workerDao= workerDao;
+    private static class DeleteWorkerFutureTask extends FutureTask<Void>{
+
+        private DeleteWorkerFutureTask(WorkerDao workerDao, WorkerModel workerModel) {
+            super(() -> {
+                workerDao.deleteWorker(workerModel);
+                return null;
+            });
+
         }
-        @Override
-        protected Void doInBackground(WorkerModel... workerModels) {
-            workerDao.deleteWorker(workerModels[0]);
-            return null;
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
         }
     }
+
+    //    WORKERS DEBT NOTE
+    public void insertWorkerDebt(WorkerDebtModel workerDebtModel) {
+        new InsertWorkerDebtFutureTask(workerDao,workerDebtModel).execute();
+    }
+
+    public void updateWorkerDebt(WorkerDebtModel workerDebtModel) {
+        new UpdateWorkerDebtFutureTask(workerDao,workerDebtModel).execute();
+    }
+
+    public void deleteWorkerDebt(WorkerDebtModel workerDebtModel) {
+        new DeleteWorkerDebtFutureTask(workerDao, workerDebtModel).execute();
+    }
+
+    public LiveData<List<WorkerDebtModel>> getWorkerDebtData(int workerId) {
+        return workerDao.getWorkerWithDebt(workerId);
+    }
+
+    public LiveData<Float> getLoanTotal() {
+        return loanTotal;
+    }
+
+    public LiveData<Float> getSavingTotal() {
+        return savingTotal;
+    }
+    
+    private static class InsertWorkerDebtFutureTask extends FutureTask<Void>{
+
+        private InsertWorkerDebtFutureTask(WorkerDao workerDao, WorkerDebtModel workerDebtModel) {
+            super(() -> {
+                workerDao.insertWorkerDebt(workerDebtModel);
+                return null;
+            });
+
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+
+    private static class UpdateWorkerDebtFutureTask extends FutureTask<Void>{
+
+        private UpdateWorkerDebtFutureTask(WorkerDao workerDao, WorkerDebtModel workerDebtModel) {
+            super(() -> {
+                workerDao.updateWorkerDebt(workerDebtModel);
+                return null;
+            });
+
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+
+    private static class DeleteWorkerDebtFutureTask extends FutureTask<Void>{
+
+        private DeleteWorkerDebtFutureTask(WorkerDao workerDao, WorkerDebtModel workerDebtModel) {
+            super(() -> {
+                workerDao.deleteWorkerDebt(workerDebtModel);
+                return null;
+            });
+
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+
 
     //    CREDITORS NOTE
-    public void insertCreditor(CreditorModel creditorModel){
-        new InsertCreditorAsyncTask(creditorDao).execute(creditorModel);
+    public void insertCreditor(CreditorModel creditorModel) {
+        new InsertCreditorFutureTask(creditorDao,creditorModel).execute();
     }
 
-    public void updateCreditor(CreditorModel creditorModel){
-        new UpdateCreditorAsyncTask(creditorDao).execute(creditorModel);
+    public void updateCreditor(CreditorModel creditorModel) {
+        new UpdateCreditorFutureTask(creditorDao,creditorModel).execute();
     }
 
-    public void deleteCreditor(CreditorModel creditorModel){
-        new DeleteCreditorAsyncTask(creditorDao).execute(creditorModel);
+    public void deleteCreditor(CreditorModel creditorModel) {
+        new DeleteCreditorFutureTask(creditorDao,creditorModel).execute();
     }
 
-    public LiveData<List<CreditorModel>> getCreditorNotes(){
+    public LiveData<List<CreditorModel>> getCreditorNotes() {
         return creditorData;
     }
-    public LiveData<Float>getCreditorTotal(){return creditorTotal;}
+    public LiveData<List<CreditorModel>> getPaidCreditorNotes() {
+        return paidCreditorData;
+    }
 
-    private static class InsertCreditorAsyncTask extends AsyncTask<CreditorModel,Void,Void> {
-        private final CreditorDao creditorDao;
+    public LiveData<Float> getCreditorTotal() {
+        return creditorTotal;
+    }
 
-        private InsertCreditorAsyncTask(CreditorDao creditorDao){
-            this.creditorDao= creditorDao;
+    private static class InsertCreditorFutureTask extends FutureTask<Void> {
+
+        private InsertCreditorFutureTask(CreditorDao creditorDao, CreditorModel creditorModel) {
+            super(() -> {
+                creditorDao.insertCreditor(creditorModel);
+                return null;
+            });
         }
 
-        @Override
-        protected Void doInBackground(CreditorModel... creditorModels) {
-            creditorDao.insertCreditor(creditorModels[0]);
-            return null;
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
         }
     }
 
-    private static class UpdateCreditorAsyncTask extends AsyncTask<CreditorModel,Void,Void> {
-        private final CreditorDao creditorDao;
+    private static class UpdateCreditorFutureTask extends FutureTask<Void> {
 
-        private UpdateCreditorAsyncTask(CreditorDao creditorDao){
-            this.creditorDao= creditorDao;
+        private UpdateCreditorFutureTask(CreditorDao creditorDao, CreditorModel creditorModel) {
+            super(() -> {
+                creditorDao.updateCreditor(creditorModel);
+                return null;
+            });
         }
 
-        @Override
-        protected Void doInBackground(CreditorModel... creditorModels) {
-            creditorDao.updateCreditor(creditorModels[0]);
-            return null;
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+
+    private static class DeleteCreditorFutureTask extends FutureTask<Void> {
+
+        private DeleteCreditorFutureTask(CreditorDao creditorDao, CreditorModel creditorModel) {
+            super(() -> {
+                creditorDao.deleteCreditor(creditorModel);
+                return null;
+            });
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
         }
     }
 
-    private static class DeleteCreditorAsyncTask extends AsyncTask<CreditorModel,Void,Void> {
-        private final CreditorDao creditorDao;
-
-        private DeleteCreditorAsyncTask(CreditorDao creditorDao){
-            this.creditorDao= creditorDao;
-        }
-
-        @Override
-        protected Void doInBackground(CreditorModel... creditorModels) {
-            creditorDao.deleteCreditor(creditorModels[0]);
-            return null;
-        }
-    }
 
     //    DEBTORS NOTE
-    public void insertDebtor(DebtorModel debtorModel){
-        new InsertDebtorAsyncTask(debtorDao).execute(debtorModel);
+    public void insertDebtor(DebtorModel debtorModel) {
+        new InsertDebtorFutureTask(debtorDao,debtorModel).execute();
     }
-    public void updateDebtor(DebtorModel debtorModel){
-        new UpdateDebtorAsyncTask(debtorDao).execute(debtorModel);
+
+    public void updateDebtor(DebtorModel debtorModel) {
+        new UpdateDebtorFutureTask(debtorDao,debtorModel).execute();
     }
-    public void deleteDebtor(DebtorModel debtorModel){
-        new DeleteDebtorAsyncTask(debtorDao).execute(debtorModel);
+
+    public void deleteDebtor(DebtorModel debtorModel) {
+        new DeleteDebtorFutureTask(debtorDao,debtorModel).execute();
     }
-    public LiveData<List<DebtorModel>> getDebtorNotes(){
+
+    public LiveData<List<DebtorModel>> getDebtorNotes() {
         return debtorData;
     }
-    public LiveData<Float>getDebtorTotal(){return debtorTotal;}
 
+    public LiveData<List<DebtorModel>> getPaidDebtorNotes() {
+        return paidDebtorData;
+    }
 
-    private static class InsertDebtorAsyncTask extends AsyncTask<DebtorModel,Void,Void> {
-        private final DebtorDao debtorDao;
+    public LiveData<Float> getDebtorTotal() {
+        return debtorTotal;
+    }
 
-        private InsertDebtorAsyncTask(DebtorDao debtorDao){
-            this.debtorDao= debtorDao;
+    private static class InsertDebtorFutureTask extends FutureTask<Void> {
+
+        private InsertDebtorFutureTask(DebtorDao debtorDao, DebtorModel debtorModel) {
+            super(() -> {
+                debtorDao.insertDebtor(debtorModel);
+                return null;
+            });
         }
 
-        @Override
-        protected Void doInBackground(DebtorModel... debtorModels) {
-            debtorDao.insertDebtor(debtorModels[0]);
-            return null;
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
         }
     }
 
-    private static class UpdateDebtorAsyncTask extends AsyncTask<DebtorModel,Void,Void> {
-        private final DebtorDao debtorDao;
+    private static class UpdateDebtorFutureTask extends FutureTask<Void> {
 
-        private UpdateDebtorAsyncTask(DebtorDao debtorDao){
-            this.debtorDao= debtorDao;
+        private UpdateDebtorFutureTask(DebtorDao debtorDao, DebtorModel debtorModel) {
+            super(() -> {
+                debtorDao.updateDebtor(debtorModel);
+                return null;
+            });
         }
 
-        @Override
-        protected Void doInBackground(DebtorModel... debtorModels) {
-            debtorDao.updateDebtor(debtorModels[0]);
-            return null;
-        }
-    }
-
-    private static class DeleteDebtorAsyncTask extends AsyncTask<DebtorModel,Void,Void> {
-        private final DebtorDao debtorDao;
-
-        private DeleteDebtorAsyncTask(DebtorDao debtorDao){
-            this.debtorDao= debtorDao;
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
         }
 
-        @Override
-        protected Void doInBackground(DebtorModel... debtorModels) {
-            debtorDao.deleteDebtor(debtorModels[0]);
-            return null;
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
         }
     }
 
+    private static class DeleteDebtorFutureTask extends FutureTask<Void> {
+
+        private DeleteDebtorFutureTask(DebtorDao debtorDao, DebtorModel debtorModel) {
+            super(() -> {
+                debtorDao.deleteDebtor(debtorModel);
+                return null;
+            });
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+
+    //    To Order NOTE
+    public void insertOrder(ToOrderModel toOrderModel) {
+        new InsertToOrderFutureTask(toOrderDao,toOrderModel).execute();
+    }
+
+    public void updateOrder(ToOrderModel toOrderModel) {
+        new UpdateToOrderFutureTask(toOrderDao,toOrderModel).execute();
+    }
+
+    public void deleteOrder(ToOrderModel toOrderModel) {
+        new DeleteToOrderFutureTask(toOrderDao,toOrderModel).execute();
+    }
+
+    public LiveData<List<ToOrderModel>> getToOrderNotes() {
+        return toOrderData;
+    }
+
+    private static class InsertToOrderFutureTask extends FutureTask<Void> {
+
+        private InsertToOrderFutureTask(ToOrderDao toOrderDao, ToOrderModel toOrderModel) {
+            super(() -> {
+                toOrderDao.insertOrder(toOrderModel);
+                return null;
+            });
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+
+    private static class UpdateToOrderFutureTask extends FutureTask<Void> {
+
+        private UpdateToOrderFutureTask(ToOrderDao toOrderDao, ToOrderModel toOrderModel) {
+            super(() -> {
+                toOrderDao.updateOrder(toOrderModel);
+                return null;
+            });
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+
+    private static class DeleteToOrderFutureTask extends FutureTask<Void> {
+
+        private DeleteToOrderFutureTask(ToOrderDao toOrderDao, ToOrderModel toOrderModel) {
+            super(() -> {
+                toOrderDao.deleteOrder(toOrderModel);
+                return null;
+            });
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+
+    // To Order List Note
+    public void insertOrderList(ToOrderListModel toOrderListModel) {
+        new InsertToOrderListFutureTask(toOrderDao,toOrderListModel).execute();
+    }
+    public void updateOrderList(ToOrderListModel toOrderListModel) {
+        new UpdateToOrderListFutureTask(toOrderDao,toOrderListModel).execute();
+    }
+    public void deleteOrderList(ToOrderListModel toOrderListModel) {
+        new DeleteToOrderListFutureTask(toOrderDao,toOrderListModel).execute();
+    }
+
+    public LiveData<List<ToOrderListModel>> getToOrderListData(int orderId) {
+        return toOrderDao.getOrderWithList(orderId);
+    }
+    public LiveData<Integer> getNumbOfOrderStatus(int orderId){
+        return toOrderDao.getNumbOfOrderedStatus(orderId);
+    }
+    public LiveData<Integer> getNumbOfOrder(int orderId){
+        return toOrderDao.getNumbOfOrder(orderId);
+    }
+    private static class InsertToOrderListFutureTask extends FutureTask<Void> {
+
+        private InsertToOrderListFutureTask(ToOrderDao toOrderDao, ToOrderListModel toOrderListModel) {
+            super(() -> {
+                toOrderDao.insertOrderList(toOrderListModel);
+                return null;
+            });
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+
+    private static class UpdateToOrderListFutureTask extends FutureTask<Void> {
+
+        private UpdateToOrderListFutureTask(ToOrderDao toOrderDao, ToOrderListModel toOrderListModel) {
+            super(() -> {
+                toOrderDao.updateOrderList(toOrderListModel);
+                return null;
+            });
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+
+    private static class DeleteToOrderListFutureTask extends FutureTask<Void> {
+
+        private DeleteToOrderListFutureTask(ToOrderDao toOrderDao, ToOrderListModel toOrderListModel) {
+            super(() -> {
+                toOrderDao.deleteOrderList(toOrderListModel);
+                return null;
+            });
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
 }

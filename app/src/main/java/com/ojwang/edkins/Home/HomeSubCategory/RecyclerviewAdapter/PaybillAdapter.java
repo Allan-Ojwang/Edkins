@@ -61,7 +61,7 @@ public class PaybillAdapter extends RecyclerView.Adapter<PaybillAdapter.PaybillH
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.OnClick(paybillNotes.get(position));
+                        listener.OnClick(paybillNotes.get(position),position);
                     }
                 }
             });
@@ -70,7 +70,7 @@ public class PaybillAdapter extends RecyclerView.Adapter<PaybillAdapter.PaybillH
     }
 
     public interface OnItemClickListener {
-        void OnClick(PaybillModel paybillModel);
+        void OnClick(PaybillModel paybillModel, int position);
     }
 
     public void setOnClickListener(OnItemClickListener listener) {
