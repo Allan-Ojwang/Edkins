@@ -4,6 +4,7 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.ojwang.edkins.Database.EdkinsDb;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.CreditorDao;
@@ -477,39 +478,24 @@ public class MainRepo {
     }
 
     //    To Order NOTE
-    public void insertOrder(ToOrderModel toOrderModel) {
-        new InsertToOrderFutureTask(toOrderDao,toOrderModel).execute();
+    public LiveData<Long> insertOrders(ToOrderModel order) {
+        MutableLiveData<Long> insertedOrderId = new MutableLiveData<>();
+        AsyncTask.execute(() -> {
+            long orderId = toOrderDao.insertOrder(order);
+            insertedOrderId.postValue(orderId);
+        });
+        return insertedOrderId;
     }
-
     public void updateOrder(ToOrderModel toOrderModel) {
         new UpdateToOrderFutureTask(toOrderDao,toOrderModel).execute();
     }
-
     public void deleteOrder(ToOrderModel toOrderModel) {
         new DeleteToOrderFutureTask(toOrderDao,toOrderModel).execute();
     }
 
+
     public LiveData<List<ToOrderModel>> getToOrderNotes() {
         return toOrderData;
-    }
-
-    private static class InsertToOrderFutureTask extends FutureTask<Void> {
-
-        private InsertToOrderFutureTask(ToOrderDao toOrderDao, ToOrderModel toOrderModel) {
-            super(() -> {
-                toOrderDao.insertOrder(toOrderModel);
-                return null;
-            });
-        }
-
-        public void execute() {
-            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
-        }
-
-        public boolean cancel(boolean mayInterruptIfRunning) {
-            super.cancel(mayInterruptIfRunning);
-            return mayInterruptIfRunning;
-        }
     }
 
     private static class UpdateToOrderFutureTask extends FutureTask<Void> {
@@ -561,7 +547,7 @@ public class MainRepo {
         new DeleteToOrderListFutureTask(toOrderDao,toOrderListModel).execute();
     }
 
-    public LiveData<List<ToOrderListModel>> getToOrderListData(int orderId) {
+    public LiveData<List<ToOrderListModel>> getToOrderListData(Long orderId) {
         return toOrderDao.getOrderWithList(orderId);
     }
     public LiveData<Integer> getNumbOfOrderStatus(int orderId){

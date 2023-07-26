@@ -6,29 +6,32 @@
     android:layout_height="match_parent"
     android:background="@drawable/pop_up_bg">
 
-    <EditText
+    <TextView
         android:id="@+id/evTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:autofillHints="Write the title"
+        android:layout_margin="10dp"
+        android:textSize="16sp"
         android:backgroundTint="@color/text"
-        android:hint="Write the title"
+        android:text="Please select a date for the order"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:textAlignment="center"
         android:minHeight="48dp"
         android:paddingHorizontal="20dp"
         android:textColor="@color/text"
-        android:textColorHint="@color/text"
         app:layout_constraintBottom_toTopOf="@+id/linearL"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="HardcodedText,TextFields,VisualLintTextFieldSize" />
+        tools:ignore="HardcodedText" />
 
     <LinearLayout
         android:id="@+id/linearL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center_horizontal"
         android:paddingHorizontal="20dp"
         app:layout_constraintBottom_toTopOf="@id/saveBtn"
         app:layout_constraintStart_toStartOf="parent">
@@ -41,8 +44,8 @@
             tools:ignore="HardcodedText" />
         <Button
             android:id="@+id/datebtn"
-            android:layout_marginStart="40dp"
-            android:layout_width="150dp"
+            android:layout_marginStart="20dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             style="?android:spinnerStyle"
             android:text="12 FEB 2023"
@@ -58,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="40dp"
         android:backgroundTint="@color/black"
-        android:text="Save"
+        android:text="Next"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

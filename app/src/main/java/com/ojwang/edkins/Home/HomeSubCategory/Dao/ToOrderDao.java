@@ -1,3 +1,4 @@
+
 package com.ojwang.edkins.Home.HomeSubCategory.Dao;
 
 import androidx.lifecycle.LiveData;
@@ -14,7 +15,8 @@ import java.util.List;
 @Dao
 public interface ToOrderDao {
     @Insert
-    void insertOrder(ToOrderModel toOrderModel);
+    long insertOrder(ToOrderModel toOrderModel);
+
     @Insert
     void insertOrderList(ToOrderListModel toOrderListModel);
 
@@ -32,12 +34,12 @@ public interface ToOrderDao {
     LiveData<List<ToOrderModel>> getToOrderData();
 
     @Query("SELECT * FROM TO_ORDER_LIST_TABLE WHERE orderid = :orderId ORDER BY oStatus ASC")
-    LiveData<List<ToOrderListModel>> getOrderWithList (int orderId);
+    LiveData<List<ToOrderListModel>> getOrderWithList (Long orderId);
 
-    @Query("SELECT COUNT(id) FROM TO_ORDER_LIST_TABLE WHERE oStatus = 1 AND orderid = :orderId")
+    @Query("SELECT COUNT(item) FROM TO_ORDER_LIST_TABLE WHERE orderid = :orderId AND oStatus = 1")
     LiveData<Integer> getNumbOfOrderedStatus(int orderId);
 
-    @Query("SELECT COUNT(id) FROM TO_ORDER_LIST_TABLE WHERE orderid = :orderId")
+    @Query("SELECT COUNT(item) FROM TO_ORDER_LIST_TABLE WHERE orderid = :orderId")
     LiveData<Integer> getNumbOfOrder (int orderId);
 
 }

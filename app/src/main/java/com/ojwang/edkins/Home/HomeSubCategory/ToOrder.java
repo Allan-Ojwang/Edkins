@@ -19,21 +19,11 @@ import com.ojwang.edkins.ViewModel.MainViewModel;
 
 import java.util.List;
 
-public class ToOrder extends AppCompatActivity implements AddOrderTask.OnOrderInputListener{
+public class ToOrder extends AppCompatActivity {
 
-    public int Year, Date;
-    public int orderId, adapPos,orderNumbStatus,orderNumb;
-    public String Month, Title;
-    @Override
-    public void sendInput(int year, String month, int date) {
-        Year = year;
-        Month = month;
-        Date = date;
-        ToOrderModel toOrderModel = new ToOrderModel(Year,Month,Date);
-        mainViewModel.insertToOrder(toOrderModel);
-
-
-    }
+    public int  adapPos,orderNumbStatus,orderNumb,day,year;
+    private String month;
+    private Long orderId;
     private MainViewModel mainViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,25 +33,25 @@ public class ToOrder extends AppCompatActivity implements AddOrderTask.OnOrderIn
         FloatingActionButton addBtn = findViewById(R.id.addfloatingActionButton);
         ImageButton backBtn = findViewById(R.id.backBtn);
 
-//        RecyclerView recyclerView = findViewById(R.id.toOrderRecycleView);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setHasFixedSize(true);
-//
-//        ToOrderAdapter toOrderAdapter = new ToOrderAdapter();
-//        recyclerView.setAdapter(toOrderAdapter);
-//
-//        Intent intentPass = getIntent();
-//        orderNumb = intentPass.getIntExtra("orderNumb",0);
-//        orderNumbStatus = intentPass.getIntExtra("orderNumbStatus",0);
-//
-//        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
-//        mainViewModel.getToOrderData().observe(this, new Observer<List<ToOrderModel>>() {
-//            @Override
-//            public void onChanged(List<ToOrderModel> toOrderModels) {
-//                toOrderAdapter.setOrderNotes(toOrderModels);
-//            }
-//        });
-//
+        RecyclerView recyclerView = findViewById(R.id.toOrderRecycleView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+
+        ToOrderAdapter toOrderAdapter = new ToOrderAdapter();
+        recyclerView.setAdapter(toOrderAdapter);
+
+        Intent intentPass = getIntent();
+        orderNumb = intentPass.getIntExtra("orderNumb",0);
+        orderNumbStatus = intentPass.getIntExtra("orderNumbStatus",0);
+
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        mainViewModel.getToOrderData().observe(this, new Observer<List<ToOrderModel>>() {
+            @Override
+            public void onChanged(List<ToOrderModel> toOrderModels) {
+                toOrderAdapter.setOrderNotes(toOrderModels);
+            }
+        });
+
 //        if (orderId > 0){
 //            mainViewModel.getToOrderListData(orderId).observe(this, new Observer<List<ToOrderListModel>>() {
 //                @Override
@@ -82,23 +72,29 @@ public class ToOrder extends AppCompatActivity implements AddOrderTask.OnOrderIn
 //        }
 
         addBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(ToOrder.this, ToOrderSub.class);
-            startActivity(intent);
+            AddOrderTask addOrderTask = new AddOrderTask();
+            addOrderTask.show(getSupportFragmentManager(),AddOrderTask.TAG);
         });
 
         backBtn.setOnClickListener(v -> finish());
 
-//        toOrderAdapter.setOnClickListener(new ToOrderAdapter.OnItemClickListener() {
-//            @Override
-//            public void OnClick(ToOrderModel toOrderModel, int position) {
-//                orderId = toOrderModel.getOrderId();
-//                adapPos = position;
-//                Intent intent = new Intent(ToOrder.this,ToOrderSub.class);
-//                intent.putExtra("orderId", orderId);
-//                intent.putExtra("adapPos",adapPos);
-//                startActivity(intent);
-//            }
-//        });
+        toOrderAdapter.setOnClickListener(new ToOrderAdapter.OnItemClickListener() {
+            @Override
+            public void OnClick(ToOrderModel toOrderModel, int position) {
+                orderId = Long.valueOf(toOrderModel.getOrderId());
+                month = toOrderModel.getMonth();
+                year = toOrderModel.getYear();
+                day = toOrderModel.getDate();
+                adapPos = position;
+                Intent intent = new Intent(ToOrder.this,ToOrderSub.class);
+                intent.putExtra("orderId", orderId);
+                intent.putExtra("adapPos",adapPos);
+                intent.putExtra("day",day);
+                intent.putExtra("month",month);
+                intent.putExtra("year",year);
+                startActivity(intent);
+            }
+        });
 
     }
 

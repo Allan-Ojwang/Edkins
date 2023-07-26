@@ -43,7 +43,9 @@ public class ToOrderAdapter extends RecyclerView.Adapter<ToOrderAdapter.ToOrderH
             holder.tvStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.text));
         } else if (Objects.equals(currentOrder.getStatus(), "Done")) {
             holder.tvStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.cardBg));
-        } else if (Objects.equals(currentOrder.getStatus(), "On Hold")) {
+        } else if (Objects.equals(currentOrder.getStatus(), "NA")) {
+            holder.tvStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.white));
+        }        else if (Objects.equals(currentOrder.getStatus(), "Over Due")) {
             holder.tvStatus.setTextColor(ContextCompat.getColor(holder.itemView.getContext(),R.color.red));
         }
 

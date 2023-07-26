@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="@color/primaryBg"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:orientation="vertical">
 
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/primaryBg"
         app:cardCornerRadius="0dp"
         tools:ignore="TextSizeCheck">
@@ -18,32 +18,34 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
             android:gravity="center"
             android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/oStatus"
                 android:layout_width="50dp"
-                android:button="@drawable/checkbox_selector"
                 android:layout_height="50dp"
-                android:background="?android:attr/listChoiceIndicatorMultiple"/>
+                android:background="?android:attr/listChoiceIndicatorMultiple"
+                android:button="@drawable/checkbox_selector" />
+
             <EditText
                 android:id="@+id/evTitle"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:autofillHints="Write the title"
                 android:backgroundTint="@color/text"
-                android:hint="Write the title"
-                android:minHeight="48dp"
-                android:paddingHorizontal="20dp"
-                android:textColor="@color/text"
-                android:textSize="20sp"
                 android:fontFamily="@font/poppins_semibold"
+                android:hint="Write the item &amp; amount"
+                android:minHeight="48dp"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/text"
                 android:textColorHint="@color/text"
+                android:textSize="18sp"
                 tools:ignore="HardcodedText,TextFields,VisualLintTextFieldSize" />
 
+
         </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
 

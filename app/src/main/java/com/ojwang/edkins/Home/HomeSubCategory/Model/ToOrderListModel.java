@@ -14,17 +14,16 @@ public class ToOrderListModel {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private final String item;
-    private final int quantity;
+    private String item;
     public boolean oStatus = false;
 
     @ColumnInfo(name = "orderid", index = true)
     private final int orderId;
 
-    public ToOrderListModel(String item, int quantity, int orderId) {
+    public ToOrderListModel(String item, int orderId, boolean oStatus) {
         this.item = item;
-        this.quantity = quantity;
         this.orderId = orderId;
+        this.oStatus = oStatus;
     }
 
     public void setId(int id) {
@@ -35,16 +34,16 @@ public class ToOrderListModel {
         this.oStatus = oStatus;
     }
 
+    public void setItem(String item) {
+        this.item = item;
+    }
+
     public int getId() {
         return id;
     }
 
     public String getItem() {
         return item;
-    }
-
-    public int getQuantity() {
-        return quantity;
     }
 
     public boolean isoStatus() {

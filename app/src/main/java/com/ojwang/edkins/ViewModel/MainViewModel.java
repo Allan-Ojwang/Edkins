@@ -122,15 +122,19 @@ public class MainViewModel extends AndroidViewModel {
 
 
     public LiveData<List<ToOrderModel>> getToOrderData(){return toOrderData;}
-    public void insertToOrder (ToOrderModel toOrderModel){mainRepo.insertOrder(toOrderModel);}
-    public void updateToOrder (ToOrderModel toOrderModel){mainRepo.updateOrder(toOrderModel);}
+    public LiveData<Long> insertOrder(ToOrderModel order) {
+        return mainRepo.insertOrders(order);
+    }
+    public void updateOrder(ToOrderModel order) {
+        mainRepo.updateOrder(order);
+    }
     public void deleteToOrder (ToOrderModel toOrderModel){mainRepo.deleteOrder(toOrderModel);}
 
     public void insertToOrderList (ToOrderListModel toOrderListModel){mainRepo.insertOrderList(toOrderListModel);}
     public void updateToOrderList (ToOrderListModel toOrderListModel){mainRepo.updateOrderList(toOrderListModel);}
     public void deleteToOrderList (ToOrderListModel toOrderListModel){mainRepo.deleteOrderList(toOrderListModel);}
 
-    public LiveData<List<ToOrderListModel>> getToOrderListData(int orderId){
+    public LiveData<List<ToOrderListModel>> getToOrderListData(Long orderId){
         return mainRepo.getToOrderListData(orderId);
     }
     public LiveData<Integer> getNumbOfOrder(int orderId){

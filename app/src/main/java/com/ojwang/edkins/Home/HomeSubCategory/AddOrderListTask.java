@@ -49,7 +49,7 @@ public class AddOrderListTask extends BottomSheetDialogFragment {
         save = view.findViewById(R.id.saveBtn);
         delete = view.findViewById(R.id.deleteBtn);
 
-        ToOrderListAdapter toOrderListAdapter = new ToOrderListAdapter();
+//        ToOrderListAdapter toOrderListAdapter = new ToOrderListAdapter();
 
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -90,7 +90,7 @@ public class AddOrderListTask extends BottomSheetDialogFragment {
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Delete
                                 if (id != -1){
-                                    mainViewModel.deleteToOrderList(toOrderListAdapter.getOrderListAt(adapterPos));
+//                                    mainViewModel.deleteToOrderList(toOrderListAdapter.getOrderListAt(adapterPos));
                                     Objects.requireNonNull(getDialog()).dismiss();
                                 } else {
                                     Toast.makeText(getContext(), "Please select a order to delete", Toast.LENGTH_SHORT).show();

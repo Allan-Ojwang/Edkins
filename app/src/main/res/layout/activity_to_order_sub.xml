@@ -41,10 +41,11 @@
 
 
                         <TextView
+                            android:id="@+id/orderNo"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:text="Order"
-                            android:layout_marginStart="100dp"
+                            android:layout_marginStart="80dp"
                             android:fontFamily="@font/poppins_medium"
                             android:textColor="@color/text"
                             android:textSize="18sp"
@@ -78,45 +79,41 @@
                         tools:ignore="HardcodedText,ImageContrastCheck" />
                 </LinearLayout>
                 <ImageButton
-                android:id="@+id/addBtn"
-                android:layout_width="130dp"
+                android:id="@+id/shareBtn"
+                android:layout_width="180dp"
                 android:layout_height="50dp"
                 android:layout_marginVertical="10dp"
-                android:background="@drawable/additem"
-                android:contentDescription="Delete"
+                android:background="@drawable/share"
+                android:contentDescription="Share"
                 tools:ignore="HardcodedText,ImageContrastCheck" />
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Select Date"
-                    android:textColor="@color/text"
-                    android:textSize="16sp"
-                    tools:ignore="HardcodedText" />
-                <Button
-                    android:id="@+id/datebtn"
-                    android:layout_marginStart="40dp"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    style="?android:spinnerStyle"
-                    android:text="12 FEB 2023"
-                    android:textColor="@color/black"
-                    tools:ignore="HardcodedText" />
-
-            </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/toOrderSubRecycleView"
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/to_order_sub_card">
+                android:background="@color/primaryBg"
+                tools:context=".Home.HomeFragment">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/toOrderSubRecycleView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-            </androidx.recyclerview.widget.RecyclerView>
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <ImageButton
+                        android:id="@+id/addBtn"
+                        android:layout_width="141dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/additem"
+                        android:contentDescription="Add"
+                        tools:ignore="HardcodedText,ImageContrastCheck" />
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
 
         </LinearLayout>
 

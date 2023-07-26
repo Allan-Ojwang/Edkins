@@ -1,8 +1,8 @@
 package com.ojwang.edkins.Home.HomeSubCategory;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,32 +10,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderModel;
 import com.ojwang.edkins.R;
+import com.ojwang.edkins.ViewModel.MainViewModel;
 
 import java.util.Calendar;
 import java.util.Objects;
 
-public class AddOrderTask extends BottomSheetDialogFragment {
+public class AddOrderTask extends DialogFragment {
     public static final String TAG = "ORDER_ADD_TASK";
-    private int id = -1;
 
     public int setDay,setYear;
     public String setMonth;
-    public interface OnOrderInputListener {
-        void sendInput(int year, String month, int date);
-    }
-
-    public OnOrderInputListener onOrderInputListener;
 
     public Button save, dateBtn;
     private DatePickerDialog datePickerDialog;
+
+    private MainViewModel mainViewModel;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,6 +42,8 @@ public class AddOrderTask extends BottomSheetDialogFragment {
         save = view.findViewById(R.id.saveBtn);
         dateBtn = view.findViewById(R.id.datebtn);
         dateBtn.setText(getTodaysDate());
+
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -76,13 +77,23 @@ public class AddOrderTask extends BottomSheetDialogFragment {
                 int daySet = Integer.parseInt(dateParts[0]);
                 String monthSet = dateParts[1];
                 int yearSet = Integer.parseInt(dateParts[2]);
-                if (id != -1){
-//                        TODO : update order
-                    Objects.requireNonNull(getDialog()).dismiss();
-                } else{
-                    onOrderInputListener.sendInput(yearSet,monthSet,daySet);
-                    Objects.requireNonNull(getDialog()).dismiss();
-                }
+
+                ToOrderModel toOrderModel = new ToOrderModel(yearSet,monthSet,daySet);
+                mainViewModel.insertOrder(toOrderModel).observe(AddOrderTask.this, new Observer<Long>() {
+                    @Override
+                    public void onChanged(Long aLong) {
+                        Intent intent = new Intent(getContext(),ToOrderSub.class);
+                        intent.putExtra("orderId", aLong);
+                        intent.putExtra("year",yearSet);
+                        intent.putExtra("month",monthSet);
+                        intent.putExtra("day",daySet);
+                        startActivity(intent);
+                        Objects.requireNonNull(getDialog()).dismiss();
+                    }
+                });
+
+
+
             }
         });
         return view;
@@ -143,13 +154,4 @@ public class AddOrderTask extends BottomSheetDialogFragment {
         return "JAN";
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            onOrderInputListener = (OnOrderInputListener) getActivity();
-        } catch (ClassCastException e) {
-            Log.e(TAG, "onAttach: ClassCastException: " + e.getMessage());
-        }
-    }
 }
