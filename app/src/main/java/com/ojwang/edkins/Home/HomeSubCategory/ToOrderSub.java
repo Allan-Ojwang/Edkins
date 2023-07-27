@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -363,10 +362,6 @@ public class ToOrderSub extends AppCompatActivity {
 
             }
         });
-
-
-        // Set the package to WhatsApp to ensure WhatsApp is the destination app for sharing
-
 
     }
 }
