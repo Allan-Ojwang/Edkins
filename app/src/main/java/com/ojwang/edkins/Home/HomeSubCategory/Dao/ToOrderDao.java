@@ -30,7 +30,7 @@ public interface ToOrderDao {
     @Delete
     void deleteOrderList(ToOrderListModel toOrderListModel);
 
-    @Query("SELECT * FROM to_order_table")
+    @Query("SELECT * FROM to_order_table ORDER BY status DESC")
     LiveData<List<ToOrderModel>> getToOrderData();
 
     @Query("SELECT * FROM TO_ORDER_LIST_TABLE WHERE orderid = :orderId ORDER BY oStatus ASC")

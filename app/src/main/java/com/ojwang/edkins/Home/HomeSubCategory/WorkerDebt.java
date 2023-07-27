@@ -1,21 +1,19 @@
 package com.ojwang.edkins.Home.HomeSubCategory;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ojwang.edkins.Home.ConfirmAlertDialog;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.WorkerDebtModel;
@@ -25,9 +23,7 @@ import com.ojwang.edkins.Home.HomeSubCategory.RecyclerviewAdapter.WorkerDebtAdap
 import com.ojwang.edkins.R;
 import com.ojwang.edkins.ViewModel.MainViewModel;
 
-import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class WorkerDebt extends AppCompatActivity implements AddWorkerDebtTask.OnWorkerDebtInputListener,    AddWorkerTask.OnWorkerInputListener{
 
@@ -95,98 +91,92 @@ public class WorkerDebt extends AppCompatActivity implements AddWorkerDebtTask.O
 
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        mainViewModel.getWorkerDebtData(workerId).observe(this, new Observer<List<WorkerDebtModel>>() {
-            @Override
-            public void onChanged(List<WorkerDebtModel> workerDebtModels) {
-                workerDebtAdapter.setWorkerDebtNotes(workerDebtModels);
-                float totalDebt ;
-                if (totalSavings != null && totalLoans != null) {
-                    totalDebt = totalSavings - totalLoans;
-                    String formattedTotal = "KSH " + String.format(Locale.getDefault(),"%.2f",totalDebt);
-                    totalAmount.setText(formattedTotal);
-                }
+        mainViewModel.getWorkerDebtData(workerId).observe(this, workerDebtAdapter::setWorkerDebtNotes);
+
+
+        MediatorLiveData<Pair<Float, Float>> mediatorLiveData = new MediatorLiveData<>();
+        LiveData<Float> totalLoan = mainViewModel.getLoanTotal();
+        mediatorLiveData.addSource(totalLoan, loans ->{
+            Pair<Float, Float> pair = mediatorLiveData.getValue();
+            if (pair == null) {
+                pair = new Pair<>(loans, null);
+            } else {
+                pair = new Pair<>(loans, pair.second);
             }
+            mediatorLiveData.setValue(pair);
         });
 
-        mainViewModel.getLoanTotal().observe(this, new Observer<Float>() {
-            @Override
-            public void onChanged(Float loans) {
-                if (loans != null) {
-                    totalLoans = loans;
-                }
+        LiveData<Float> totalSaving = mainViewModel.getSavingTotal();
+        mediatorLiveData.addSource(totalSaving, saving ->{
+            Pair<Float, Float> pair = mediatorLiveData.getValue();
+            if (pair == null) {
+                pair = new Pair<>(saving, null);
+            } else {
+                pair = new Pair<>(pair.first, saving);
             }
+            mediatorLiveData.setValue(pair);
         });
 
-        mainViewModel.getSavingTotal().observe(this, new Observer<Float>() {
-            @Override
-            public void onChanged(Float savings) {
-                if (savings != null) {
-                    totalSavings = savings;
-                }
+        mediatorLiveData.observe(this, floatFloatPair -> {
+            totalSavings = floatFloatPair.first;
+            totalLoans = floatFloatPair.second;
+
+            float totalDebt ;
+            if (totalSavings != null && totalLoans != null) {
+                totalDebt = totalSavings - totalLoans;
+                String formattedTotal = "KSH " + String.format(Locale.getDefault(),"%.2f",totalDebt);
+                totalAmount.setText(formattedTotal);
             }
         });
-
         backBtn.setOnClickListener(v -> finish());
         addBtn.setOnClickListener(v -> {
             AddWorkerDebtTask addWorkerDebtTask = new AddWorkerDebtTask();
             addWorkerDebtTask.show(getSupportFragmentManager(),AddWorkerDebtTask.TAG);
         });
 
-        workerDebtAdapter.setOnClickListener(new WorkerDebtAdapter.OnItemClickListener() {
-            @Override
-            public void OnClick(WorkerDebtModel workerDebtModel, int position) {
-                AddWorkerDebtTask addWorkerDebtTask = new AddWorkerDebtTask();
-                Bundle bundle = new Bundle();
-                bundle.putInt("ID",workerDebtModel.getDebtId());
-                bundle.putString("DATE",workerDebtModel.getDate());
-                bundle.putString("DSTATUS",workerDebtModel.getDStatus());
-                bundle.putInt("AMOUNT",workerDebtModel.getAmount());
-                bundle.putInt("ADAPTERPOS",position);
-                addWorkerDebtTask.setArguments(bundle);
-                addWorkerDebtTask.show(getSupportFragmentManager(),AddWorkerDebtTask.EDIT_TAG);
-            }
+        workerDebtAdapter.setOnClickListener((workerDebtModel, position) -> {
+            AddWorkerDebtTask addWorkerDebtTask = new AddWorkerDebtTask();
+            Bundle bundle = new Bundle();
+            bundle.putInt("ID",workerDebtModel.getDebtId());
+            bundle.putString("DATE",workerDebtModel.getDate());
+            bundle.putString("DSTATUS",workerDebtModel.getDStatus());
+            bundle.putInt("AMOUNT",workerDebtModel.getAmount());
+            bundle.putInt("ADAPTERPOS",position);
+            addWorkerDebtTask.setArguments(bundle);
+            addWorkerDebtTask.show(getSupportFragmentManager(),AddWorkerDebtTask.EDIT_TAG);
         });
 
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(WorkerDebt.this, "Are you sure you want to delete the worker's record? \n \n THIS PROCESS IS IRREVERSIBLE!!!", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case DialogInterface.BUTTON_POSITIVE:
-                                //Delete
-                                if (workerId != -1){
-                                    mainViewModel.deleteWorker(workerAdapter.getWorkerAt(adapPos));
-                                    dialog.dismiss();
-                                    finish();
-                                } else {
-                                    Toast.makeText(WorkerDebt.this, "Please select a debt to delete", Toast.LENGTH_SHORT).show();
-                                }
-                                break;
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                //Do nothing
-                                break;
+        deleteBtn.setOnClickListener(v -> {
+            ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(WorkerDebt.this, "Are you sure you want to delete the worker's record? \n \n THIS PROCESS IS IRREVERSIBLE!!!", (dialog, which) -> {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //Delete
+                        if (workerId != -1){
+                            mainViewModel.deleteWorker(workerAdapter.getWorkerAt(adapPos));
+                            dialog.dismiss();
+                            finish();
+                        } else {
+                            Toast.makeText(WorkerDebt.this, "Please select a debt to delete", Toast.LENGTH_SHORT).show();
                         }
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //Do nothing
+                        break;
+                }
 
-                    }
-                });
-                confirmAlertDialog.showDialog();
-            }
+            });
+            confirmAlertDialog.showDialog();
         });
 
-        updateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddWorkerTask addWorkerTask = new AddWorkerTask();
-                Bundle bundle = new Bundle();
-                bundle.putInt("ID",workerId);
-                bundle.putString("NAME",workerName);
-                bundle.putInt("IdNUMBER",idNo);
-                bundle.putInt("NUMBER",number);
-                addWorkerTask.setArguments(bundle);
-                addWorkerTask.show(getSupportFragmentManager(),AddWorkerTask.EDIT_TAG);
-            }
+        updateBtn.setOnClickListener(v -> {
+            AddWorkerTask addWorkerTask = new AddWorkerTask();
+            Bundle bundle = new Bundle();
+            bundle.putInt("ID",workerId);
+            bundle.putString("NAME",workerName);
+            bundle.putInt("IdNUMBER",idNo);
+            bundle.putInt("NUMBER",number);
+            addWorkerTask.setArguments(bundle);
+            addWorkerTask.show(getSupportFragmentManager(),AddWorkerTask.EDIT_TAG);
         });
     }
 
