@@ -105,7 +105,7 @@ public class AddWorkerDebtTask extends BottomSheetDialogFragment {
             date = bundle.getString("DATE");
             amount = bundle.getInt("AMOUNT");
             dStatus = bundle.getString("DSTATUS");
-            Log.e("status",dStatus);
+
             if (Objects.equals(dStatus, "Loan")){
                 radioButtonLoan.setChecked(true);
             } else if (Objects.equals(dStatus, "Saving")) {

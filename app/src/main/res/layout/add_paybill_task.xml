@@ -6,38 +6,95 @@
     android:layout_height="match_parent"
     android:background="@drawable/pop_up_bg">
 
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp"
+        app:layout_constraintBottom_toTopOf="@id/evName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="Choose one:"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:textColor="@color/text"
+            tools:ignore="HardcodedText" />
+        <RadioButton
+            android:id="@+id/radioButtonTill"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="TILL"
+            android:textSize="18sp"
+            android:textColor="@color/text"
+            tools:ignore="HardcodedText" />
+
+        <RadioButton
+            android:id="@+id/radioButtonPaybill"
+            android:layout_width="102dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="PAYBILL"
+            android:textSize="18sp"
+            android:textColor="@color/text"
+            tools:ignore="HardcodedText"/>
+    </RadioGroup>
     <EditText
-        android:id="@+id/evTitle"
+        android:id="@+id/evName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:autofillHints="Write the title"
         android:backgroundTint="@color/text"
-        android:hint="Write the title"
+        android:hint="Enter till name"
         android:minHeight="48dp"
         android:paddingHorizontal="20dp"
         android:textColor="@color/text"
         android:textColorHint="@color/text"
-        app:layout_constraintBottom_toTopOf="@+id/evBody"
+        app:layout_constraintBottom_toTopOf="@+id/evTillPay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="HardcodedText,TextFields,VisualLintTextFieldSize" />
+        tools:ignore="Autofill,HardcodedText,TextFields,VisualLintTextFieldSize" />
 
     <EditText
-        android:id="@+id/evBody"
+        android:id="@+id/evTillPay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:backgroundTint="@color/text"
-        android:hint="Write the body"
+        android:hint="Enter till number"
         android:textColorHint="@color/text"
         android:minHeight="48dp"
         android:paddingHorizontal="20dp"
         android:textColor="@color/text"
+        app:layout_constraintBottom_toTopOf="@+id/evAccount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="Autofill,HardcodedText,TextFields,VisualLintTextFieldSize" />
+
+    <EditText
+        android:id="@+id/evAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/text"
+        android:hint="Enter account number"
+        android:textColorHint="@color/text"
+        android:minHeight="48dp"
+        android:paddingHorizontal="20dp"
+        android:textColor="@color/text"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/lowerLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="Autofill,HardcodedText,TextFields,VisualLintTextFieldSize" />
+
 
     <LinearLayout
         android:id="@+id/lowerLayout"
@@ -69,8 +126,8 @@
             android:layout_marginHorizontal="20dp"
             android:backgroundTint="@color/red"
             android:textSize="20sp"
-            android:fontFamily="@font/poppins_extrabold"
             android:textColor="@color/text"
+            android:fontFamily="@font/poppins_extrabold"
             android:text="Delete"
             tools:ignore="HardcodedText"
             style="?android:attr/buttonBarButtonStyle" />

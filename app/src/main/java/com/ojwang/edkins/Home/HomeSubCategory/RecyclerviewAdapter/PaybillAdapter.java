@@ -14,6 +14,7 @@ import com.ojwang.edkins.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PaybillAdapter extends RecyclerView.Adapter<PaybillAdapter.PaybillHolder> {
     private static List<PaybillModel> paybillNotes = new ArrayList<>();
@@ -29,8 +30,17 @@ public class PaybillAdapter extends RecyclerView.Adapter<PaybillAdapter.PaybillH
     @Override
     public void onBindViewHolder(@NonNull PaybillHolder holder, int position) {
         PaybillModel currentNote = paybillNotes.get(position);
-        holder.tvTitle.setText(currentNote.getTitle());
-        holder.tvBody.setText(currentNote.getBody());
+        String status = currentNote.getStatus();
+        if (Objects.equals(status, "TILL")){
+            holder.tvName.setText(currentNote.getName());
+            holder.tvTillPay.setText(currentNote.getTillPay());
+            holder.tvAcc.setVisibility(View.GONE);
+        } else if (Objects.equals(status, "PAYBILL")) {
+            holder.tvName.setText(currentNote.getName());
+            holder.tvTillPay.setText(currentNote.getTillPay());
+            holder.tvAcc.setVisibility(View.VISIBLE);
+            holder.tvAcc.setText(currentNote.getAccNo());
+        }
     }
 
     @Override
@@ -49,13 +59,15 @@ public class PaybillAdapter extends RecyclerView.Adapter<PaybillAdapter.PaybillH
     }
 
     public static class PaybillHolder extends RecyclerView.ViewHolder {
-        private final TextView tvTitle;
-        private final TextView tvBody;
+        private final TextView tvName;
+        private final TextView tvTillPay;
+        private final TextView tvAcc;
 
         public PaybillHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.pay_heading);
-            tvBody = itemView.findViewById(R.id.pay_body);
+            tvName = itemView.findViewById(R.id.pay_heading);
+            tvTillPay = itemView.findViewById(R.id.pay_till);
+            tvAcc = itemView.findViewById(R.id.pay_acc);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

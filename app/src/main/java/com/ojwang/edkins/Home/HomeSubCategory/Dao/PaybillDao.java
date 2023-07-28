@@ -25,6 +25,6 @@ public interface PaybillDao {
         @Query("SELECT * FROM paybill_table")
         LiveData<List<PaybillModel>>getPaybillData();
 
-        @Query("SELECT * FROM paybill_table WHERE title LIKE :query")
+        @Query("SELECT * FROM paybill_table WHERE name LIKE :query")
         LiveData<List<PaybillModel>> searchPaybill(String query);
 }

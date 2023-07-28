@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.ojwang.edkins.Home.ConfirmAlertDialog;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.PaybillModel;
 import com.ojwang.edkins.Home.HomeSubCategory.RecyclerviewAdapter.PaybillAdapter;
 import com.ojwang.edkins.R;
 import com.ojwang.edkins.ViewModel.MainViewModel;
@@ -27,16 +30,15 @@ public class AddPaybillTask extends BottomSheetDialogFragment {
     public static final String TAG = "PAYBILL_ADD_TASK";
     public static final String EDIT_TAG = "PAYBILL_ADD_TASK_EDITED";
 
-    public interface OnPaybillInputListener {
-        void sendInput(String title, String body);
 
-        void sendUpdateInput(int id, String title, String body);
-    }
-
-    public OnPaybillInputListener onPaybillInputListener;
-
-    public EditText evTitle, evBody;
+    public EditText evName, evTillPay, evAccNO;
     public Button save, delete;
+
+    public RadioGroup radioGroup;
+    public RadioButton radioButtonTill;
+    public RadioButton radioButtonPaybill;
+    private MainViewModel mainViewModel;
+    public String status ="TILL";
 
     private int adapterPos;
     private int id = -1;
@@ -45,53 +47,103 @@ public class AddPaybillTask extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        String title,body;
-        MainViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+        String nameRec,tillPayRec,accRec;
+
         View view = inflater.inflate(R.layout.add_paybill_task, container, false);
-        evTitle = view.findViewById(R.id.evTitle);
-        evBody = view.findViewById(R.id.evBody);
+        evName = view.findViewById(R.id.evName);
+        evTillPay = view.findViewById(R.id.evTillPay);
+        evAccNO = view.findViewById(R.id.evAccount);
         save = view.findViewById(R.id.saveBtn);
         delete = view.findViewById(R.id.deleteBtn);
-
+        radioGroup = view.findViewById(R.id.radioGroup);
+        radioButtonPaybill = view.findViewById(R.id.radioButtonPaybill);
+        radioButtonTill = view.findViewById(R.id.radioButtonTill);
         PaybillAdapter paybillAdapter = new PaybillAdapter();
+
+        if (id == -1 ){
+            radioButtonTill.setChecked(true);
+        }
 
 //        Receives data from recycler view
         Bundle bundle = getArguments();
         if (bundle != null) {
             adapterPos = bundle.getInt("ADAPTERPOS");
             id = bundle.getInt("ID");
-            title = bundle.getString("TITLE");
-            body = bundle.getString("BODY");
-            evTitle.setText(title);
-            evBody.setText(body);
+            nameRec = bundle.getString("NAME");
+            tillPayRec = bundle.getString("TILLPAY");
+            status = bundle.getString("STATUS");
+            accRec = bundle.getString("ACCNO");
+
+            if (Objects.equals(status, "PAYBILL")){
+                evAccNO.setVisibility(View.VISIBLE);
+                evAccNO.setText(accRec);
+                radioButtonPaybill.setChecked(true);
+
+            } else if (Objects.equals(status, "TILL")) {
+                radioButtonTill.setChecked(true);
+            }
+
+            evName.setText(nameRec);
+            evTillPay.setText(tillPayRec);
 
         }
 
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
-        save.setOnClickListener(new View.OnClickListener() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton radioButton = view.findViewById(checkedId);
 
-                if (evTitle.getText().toString().trim().isEmpty() || evBody.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(getContext(), "Please enter the title and body", Toast.LENGTH_SHORT).show();
+                if (checkedId == R.id.radioButtonTill){
+                    evName.setHint("Enter till name");
+                    evTillPay.setHint("Enter till number");
+                    evAccNO.setVisibility(View.GONE);
+                } else if (checkedId == R.id.radioButtonPaybill) {
+                    evName.setHint("Enter paybill name");
+                    evTillPay.setHint("Enter paybill number");
+                    evAccNO.setVisibility(View.VISIBLE);
+                }
+                status = radioButton.getText().toString();
+            }
+        });
+
+
+
+        save.setOnClickListener(v -> {
+
+            if (evName.getText().toString().trim().isEmpty() || evTillPay.getText().toString().trim().isEmpty()) {
+                Toast.makeText(getContext(), "Please enter the name and number", Toast.LENGTH_SHORT).show();
+            } else {
+                String name= evName.getText().toString();
+                String tillPay = evTillPay.getText().toString();
+                String accNo = evAccNO.getText().toString();
+
+                PaybillModel paybillModel = new PaybillModel(name,tillPay,status);
+                if (id != -1) {
+                    paybillModel.setId(id);
+                    if (Objects.equals(status, "TILL")){
+                        mainViewModel.updatePaybill(paybillModel);
+                    } else if (Objects.equals(status, "PAYBILL")) {
+                        paybillModel.setAccNo(accNo);
+                        mainViewModel.updatePaybill(paybillModel);
+                    }
                 } else {
-                    String title = evTitle.getText().toString();
-                    String body = evBody.getText().toString();
-                    if (id != -1) {
-                        onPaybillInputListener.sendUpdateInput(id, title, body);
-                        Objects.requireNonNull(getDialog()).dismiss();
-                    } else {
-                        onPaybillInputListener.sendInput(title, body);
-                        Objects.requireNonNull(getDialog()).dismiss();
+                    if (Objects.equals(status, "TILL")){
+                        mainViewModel.insertPaybill(paybillModel);
+                    } else if (Objects.equals(status, "PAYBILL")) {
+                        paybillModel.setAccNo(accNo);
+                        mainViewModel.insertPaybill(paybillModel);
                     }
                 }
+                Objects.requireNonNull(getDialog()).dismiss();
             }
         });
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(getContext(), "Are you sure you want to delete?", new DialogInterface.OnClickListener() {
+                ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(getContext(), "Are you sure you want to delete this paybill?", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
@@ -119,13 +171,5 @@ public class AddPaybillTask extends BottomSheetDialogFragment {
 
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            onPaybillInputListener = (OnPaybillInputListener) getActivity();
-        } catch (ClassCastException e) {
-            Log.e(TAG, "onAttach: ClassCastException: " + e.getMessage());
-        }
-    }
+
 }

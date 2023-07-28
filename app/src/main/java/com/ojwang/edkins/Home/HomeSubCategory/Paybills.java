@@ -19,28 +19,9 @@ import com.ojwang.edkins.ViewModel.MainViewModel;
 
 import java.util.List;
 
-public class Paybills extends AppCompatActivity implements AddPaybillTask.OnPaybillInputListener {
+public class Paybills extends AppCompatActivity {
 
-    public int Id;
-    public String Title, Body;
     private MainViewModel mainViewModel;
-
-    @Override
-    public void sendInput( String title, String body) {
-        Title = title;
-        Body = body;
-        PaybillModel paybillModel = new PaybillModel(Title,Body);
-        mainViewModel.insertPaybill(paybillModel);
-    }
-    public void sendUpdateInput( int id, String title, String body) {
-        Id = id;
-        Title = title;
-        Body = body;
-        PaybillModel paybillModel = new PaybillModel(Title,Body);
-        paybillModel.setId(id);
-        mainViewModel.updatePaybill(paybillModel);
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +43,6 @@ public class Paybills extends AppCompatActivity implements AddPaybillTask.OnPayb
             @Override
             public void onChanged(List<PaybillModel> paybillModels) {
                 paybillAdapter.setPaybillNotes(paybillModels);
-
             }
         });
 
@@ -81,8 +61,10 @@ public class Paybills extends AppCompatActivity implements AddPaybillTask.OnPayb
                 AddPaybillTask addPaybillTask = new AddPaybillTask();
                 Bundle bundle = new Bundle();
                 bundle.putInt("ID",paybillModel.getId());
-                bundle.putString("TITLE",paybillModel.getTitle());
-                bundle.putString("BODY",paybillModel.getBody());
+                bundle.putString("NAME",paybillModel.getName());
+                bundle.putString("TILLPAY",paybillModel.getTillPay());
+                bundle.putString("STATUS",paybillModel.getStatus());
+                bundle.putString("ACCNO",paybillModel.getAccNo());
                 bundle.putInt("ADAPTERPOS",position);
                 addPaybillTask.setArguments(bundle);
                 addPaybillTask.show(getSupportFragmentManager(),AddPaybillTask.EDIT_TAG);

@@ -8,12 +8,13 @@ public class PaybillModel {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private final String title;
-    public String body;
+    private String name,tillPay,accNo,status;
 
-    public PaybillModel(String title, String body) {
-        this.title = title;
-        this.body = body;
+
+    public PaybillModel(String name, String tillPay, String status) {
+        this.name = name;
+        this.tillPay = tillPay;
+        this.status = status;
     }
 
     public void setId(int id) {
@@ -24,11 +25,35 @@ public class PaybillModel {
         return id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public String getBody() {
-        return body;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTillPay() {
+        return tillPay;
+    }
+
+    public void setTillPay(String tillPay) {
+        this.tillPay = tillPay;
+    }
+
+    public String getAccNo() {
+        return accNo;
+    }
+
+    public void setAccNo(String accNo) {
+        this.accNo = accNo;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

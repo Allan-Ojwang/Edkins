@@ -28,8 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppins_medium"
                 android:text="Car And General"
+                android:fontFamily="@font/poppins_medium"
                 android:textAlignment="textStart"
                 android:textColor="@color/text"
                 android:textSize="18sp"
@@ -37,12 +37,23 @@
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/pay_body"
+                android:id="@+id/pay_till"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppins_light"
                 android:text="12345678"
+                android:fontFamily="@font/poppins_light"
+                android:textAlignment="textStart"
+                android:textColor="@color/text"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+            <TextView
+                android:id="@+id/pay_acc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="12345678"
+                android:fontFamily="@font/poppins_light"
                 android:textAlignment="textStart"
                 android:textColor="@color/text"
                 android:textSize="14sp"
