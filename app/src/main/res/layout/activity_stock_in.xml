@@ -6,12 +6,14 @@
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".Home.HomeSubCategory.StockIn">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginBottom="60dp"
         android:background="@color/dashBg"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,28 +27,64 @@
 
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/oldStockBtn"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginVertical="60dp"
-        android:background="@drawable/old_stock"
-        android:contentDescription="Back"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        tools:ignore="HardcodedText" />
+        android:layout_marginVertical="60dp">
 
-    <ImageButton
-        android:id="@+id/newStockBtn"
+        <ImageButton
+            android:id="@+id/newStockBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/new_stock"
+            android:contentDescription="New stock"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            tools:ignore="HardcodedText" />
+
+        <ImageButton
+            android:id="@+id/newStockInfoBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/infobtn"
+            android:contentDescription="Another image"
+            android:padding="20dp"
+            tools:ignore="HardcodedText,TouchTargetSizeCheck" />
+
+    </FrameLayout>
+
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginVertical="60dp"
-        android:background="@drawable/old_stock"
-        android:contentDescription="Back"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        tools:ignore="HardcodedText" />
+        android:layout_marginVertical="60dp">
+
+
+        <ImageButton
+            android:id="@+id/oldStockBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/old_stock"
+            android:contentDescription="Old stock"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            tools:ignore="HardcodedText" />
+
+        <ImageButton
+            android:id="@+id/oldStockInfoBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/infobtn"
+            android:contentDescription="Old stock info"
+            tools:ignore="HardcodedText,TouchTargetSizeCheck" />
+
+    </FrameLayout>
 
 </LinearLayout>
