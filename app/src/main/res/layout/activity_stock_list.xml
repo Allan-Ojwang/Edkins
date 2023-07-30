@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home.HomeSubCategory.StockList">
+    android:orientation="vertical"
+    android:background="@color/primaryBg"
+    tools:context=".Home.HomeSubCategory.StockOut">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/back"
+            android:contentDescription="Back"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            tools:ignore="HardcodedText" />
+
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/stockListSearch"
+            android:layout_width="300dp"
+
+            android:layout_height="50dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/search_view_bg"
+            app:queryHint="Search product name"
+            app:iconifiedByDefault="false"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/paybillRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/stock_list_card" />
+
+</LinearLayout>

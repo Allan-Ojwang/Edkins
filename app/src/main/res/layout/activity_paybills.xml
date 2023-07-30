@@ -65,9 +65,7 @@
                 android:layout_gravity="center"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
-                tools:listitem="@layout/paybill_card">
-
-            </androidx.recyclerview.widget.RecyclerView>
+                tools:listitem="@layout/paybill_card"/>
 
         </LinearLayout>
 
