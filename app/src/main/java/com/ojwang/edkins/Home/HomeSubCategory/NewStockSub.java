@@ -3,6 +3,7 @@ package com.ojwang.edkins.Home.HomeSubCategory;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,8 +17,7 @@ import com.ojwang.edkins.ViewModel.MainViewModel;
 public class NewStockSub extends AppCompatActivity {
     private MainViewModel mainViewModel;
     private int id = -1;
-    private int adapterPos, sellingPrice;
-    private String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +28,17 @@ public class NewStockSub extends AppCompatActivity {
         EditText evName =  findViewById(R.id.evProductName);
         EditText evSp = findViewById(R.id.evSp);
 
-        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("ID")) {
+            id = intent.getIntExtra("ID",0);
+            String name = intent.getStringExtra("NAME");
+            int sellingPrice = intent.getIntExtra("SELLING-PRICE", 0);
+            evName.setText(name);
+            evSp.setText(String.valueOf(sellingPrice));
 
+        }
+
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         backBtn.setOnClickListener(v -> finish());
         saveBtn.setOnClickListener( v -> {
@@ -46,7 +55,7 @@ public class NewStockSub extends AppCompatActivity {
                     stockModel.setId(id);
                     mainViewModel.updateStock(stockModel);
                     Toast.makeText(this, "Data updated successfully", Toast.LENGTH_SHORT).show();
-
+                    finish();
                 } else{
                     mainViewModel.insertStock(stockModel);
                     Toast.makeText(this, "Data saved successfully", Toast.LENGTH_SHORT).show();
@@ -57,4 +66,5 @@ public class NewStockSub extends AppCompatActivity {
 
         });
     }
+
 }

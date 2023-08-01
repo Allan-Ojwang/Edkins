@@ -154,5 +154,9 @@ public class MainViewModel extends AndroidViewModel {
     public void updateStock(StockModel stockModel) {
         mainRepo.updateStock(stockModel);
     }
-    public void deleteToOrder (StockModel stockModel){mainRepo.deleteStock(stockModel);}
+    public void deleteStock (StockModel stockModel){mainRepo.deleteStock(stockModel);}
+
+    public LiveData<List<StockModel>> searchStock(String query){
+        return mainRepo.searchStock(query);
+    }
 }

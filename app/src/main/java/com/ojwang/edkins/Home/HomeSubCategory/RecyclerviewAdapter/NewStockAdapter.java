@@ -47,7 +47,7 @@ public class NewStockAdapter extends RecyclerView.Adapter<NewStockAdapter.NewSto
         notifyDataSetChanged();
     }
 
-    public StockModel getCreditorAt(int postion){
+    public StockModel getStockAt(int postion){
         return stockModels.get(postion);
     }
 

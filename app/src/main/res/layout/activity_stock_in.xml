@@ -50,7 +50,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/infobtn"
+            android:background="@drawable/info_btn"
             android:contentDescription="Another image"
             android:padding="20dp"
             tools:ignore="HardcodedText,TouchTargetSizeCheck" />
@@ -81,7 +81,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/infobtn"
+            android:background="@drawable/info_btn"
             android:contentDescription="Old stock info"
             tools:ignore="HardcodedText,TouchTargetSizeCheck" />
 

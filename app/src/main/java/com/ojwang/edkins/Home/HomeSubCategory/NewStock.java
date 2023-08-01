@@ -1,6 +1,8 @@
 package com.ojwang.edkins.Home.HomeSubCategory;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -66,6 +69,26 @@ public class NewStock extends AppCompatActivity {
         addFloatingActionButton.setOnClickListener(v -> {
             Intent intent = new Intent(NewStock.this, NewStockSub.class);
             startActivity(intent);
+        });
+
+        SearchView searchView = findViewById(R.id.stockSearch);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                LiveData<List<StockModel>> filterStock= mainViewModel.searchStock("%" + newText + "%");
+                filterStock.observe(NewStock.this, new Observer<List<StockModel>>() {
+                    @Override
+                    public void onChanged(List<StockModel> stockModels) {
+                        newStockAdapter.setStockModels(stockModels);
+                    }
+                });
+                return true;
+            }
         });
     }
 }

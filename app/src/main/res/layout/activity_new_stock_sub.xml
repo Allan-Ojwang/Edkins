@@ -82,7 +82,7 @@
             android:textColorHint="@color/text"
             android:hint="Enter the full product name"
             android:autofillHints="Enter the full product name"
-            android:background="@drawable/edittext"
+            android:background="@drawable/edit_text"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>
@@ -115,7 +115,7 @@
             android:textColor="@color/text"
             android:textColorHint="@color/text"
             android:inputType="text"
-            android:background="@drawable/edittext"
+            android:background="@drawable/edit_text"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>

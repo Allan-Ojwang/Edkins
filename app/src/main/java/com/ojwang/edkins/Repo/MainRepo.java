@@ -633,6 +633,10 @@ public class MainRepo {
         new DeleteStockFutureTask(stockDao, stockModel).execute();
     }
 
+    public LiveData<List<StockModel>> searchStock(String query){
+        return stockDao.searchStock(query);
+    }
+
     public LiveData<List<StockModel>> getStockData() {
         return stockDao.getStockData();
     }
@@ -678,7 +682,7 @@ public class MainRepo {
 
         private DeleteStockFutureTask(StockDao stockDao, StockModel stockModel) {
             super(() -> {
-                stockDao.insertNewStock(stockModel);
+                stockDao.deleteNewStock(stockModel);
                 return null;
             });
         }

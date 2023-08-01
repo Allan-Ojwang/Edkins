@@ -80,7 +80,7 @@
             android:autofillHints="Enter the date"
             android:textColor="@color/text"
             android:textColorHint="@color/text"
-            android:background="@drawable/edittext"
+            android:background="@drawable/edit_text"
             tools:ignore="HardcodedText"/>
 
     </LinearLayout>
@@ -112,7 +112,7 @@
             android:autofillHints="Select the product"
             android:textColor="@color/text"
             android:textColorHint="@color/text"
-            android:background="@drawable/edittext"
+            android:background="@drawable/edit_text"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>
@@ -146,7 +146,7 @@
             android:textColor="@color/text"
             android:textColorHint="@color/text"
             android:inputType="text"
-            android:background="@drawable/edittext"
+            android:background="@drawable/edit_text"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>
@@ -178,7 +178,7 @@
             android:textColor="@color/text"
             android:textColorHint="@color/text"
             android:inputType="text"
-            android:background="@drawable/edittext"
+            android:background="@drawable/edit_text"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>
