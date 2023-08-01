@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.CreditorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.DebtorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.PaybillModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.StockModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderListModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.WorkerDebtModel;
@@ -26,6 +27,7 @@ public class MainViewModel extends AndroidViewModel {
     private final LiveData<List<ToOrderModel>> toOrderData;
     private final LiveData<List<DebtorModel>> debtorData;
     private final LiveData<List<DebtorModel>> paidDebtorData;
+    private final LiveData<List<StockModel>> stockData;
     public MainViewModel(@NonNull Application application) {
         super(application);
         mainRepo = new MainRepo(application);
@@ -36,6 +38,7 @@ public class MainViewModel extends AndroidViewModel {
         debtorData = mainRepo.getDebtorNotes();
         paidDebtorData = mainRepo.getPaidDebtorNotes();
         toOrderData = mainRepo.getToOrderNotes();
+        stockData = mainRepo.getStockData();
     }
 
     public void insertPaybill (PaybillModel paybillModel){
@@ -143,4 +146,13 @@ public class MainViewModel extends AndroidViewModel {
     public LiveData<Integer> getNumbOfOrderStatus(int orderId){
         return mainRepo.getNumbOfOrderStatus(orderId);
     }
+
+    public LiveData<List<StockModel>> getStockData(){return stockData;}
+    public void insertStock(StockModel stockModel) {
+         mainRepo.insertStock(stockModel);
+    }
+    public void updateStock(StockModel stockModel) {
+        mainRepo.updateStock(stockModel);
+    }
+    public void deleteToOrder (StockModel stockModel){mainRepo.deleteStock(stockModel);}
 }

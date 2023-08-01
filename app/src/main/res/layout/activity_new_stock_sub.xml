@@ -73,13 +73,15 @@
             tools:ignore="HardcodedText,TextSizeCheck" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/evProductName"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:padding="10dp"
             android:inputType="text"
-            android:hint="Select the product"
-            android:autofillHints="Select the product"
+            android:textColor="@color/text"
+            android:textColorHint="@color/text"
+            android:hint="Enter the full product name"
+            android:autofillHints="Enter the full product name"
             android:background="@drawable/edittext"
             tools:ignore="HardcodedText" />
 
@@ -104,12 +106,14 @@
             tools:ignore="HardcodedText,TextSizeCheck" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/evSp"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:padding="10dp"
             android:hint="Enter the selling price"
             android:autofillHints="Enter the selling price"
+            android:textColor="@color/text"
+            android:textColorHint="@color/text"
             android:inputType="text"
             android:background="@drawable/edittext"
             tools:ignore="HardcodedText" />

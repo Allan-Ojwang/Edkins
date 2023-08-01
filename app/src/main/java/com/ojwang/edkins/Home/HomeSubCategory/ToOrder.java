@@ -52,24 +52,6 @@ public class ToOrder extends AppCompatActivity {
             }
         });
 
-//        if (orderId > 0){
-//            mainViewModel.getToOrderListData(orderId).observe(this, new Observer<List<ToOrderListModel>>() {
-//                @Override
-//                public void onChanged(List<ToOrderListModel> toOrderListModels) {
-//                    ToOrderModel toOrderModel = toOrderAdapter.getOrderAt(adapPos);
-//                    String newOrderStatus;
-//                    if (orderNumbStatus == orderNumb && orderNumb > 0){
-//                    newOrderStatus = "Done";
-//                    toOrderModel.setStatus(newOrderStatus);
-//                    mainViewModel.updateToOrder(toOrderModel);
-//                } else {
-//                    newOrderStatus = "Processing";
-//                    toOrderModel.setStatus(newOrderStatus);
-//                    mainViewModel.updateToOrder(toOrderModel);
-//                }
-//                }
-//            });
-//        }
 
         addBtn.setOnClickListener(v -> {
             AddOrderTask addOrderTask = new AddOrderTask();

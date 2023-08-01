@@ -10,11 +10,13 @@ import com.ojwang.edkins.Database.EdkinsDb;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.CreditorDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.DebtorDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.PaybillDao;
+import com.ojwang.edkins.Home.HomeSubCategory.Dao.StockDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.ToOrderDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.WorkerDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.CreditorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.DebtorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.PaybillModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.StockModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderListModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.WorkerDebtModel;
@@ -47,6 +49,8 @@ public class MainRepo {
     private final ToOrderDao toOrderDao;
     LiveData<List<ToOrderModel>> toOrderData;
 
+    private final StockDao stockDao;
+    LiveData<List<StockModel>> stockData;
 
     public MainRepo(Application application) {
         EdkinsDb db = EdkinsDb.getInstance(application);
@@ -66,6 +70,8 @@ public class MainRepo {
         debtorTotal = debtorDao.getTotalAmount();
         toOrderDao = db.toOrderDao();
         toOrderData = toOrderDao.getToOrderData();
+        stockDao = db.stockDao();
+        stockData = stockDao.getStockData();
     }
 
     //    PAYBILL NOTE
@@ -599,6 +605,80 @@ public class MainRepo {
         private DeleteToOrderListFutureTask(ToOrderDao toOrderDao, ToOrderListModel toOrderListModel) {
             super(() -> {
                 toOrderDao.deleteOrderList(toOrderListModel);
+                return null;
+            });
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+
+
+    //    STOCK NOTE
+    public void insertStock(StockModel stockModel) {
+        new InsertStockFutureTask(stockDao,stockModel).execute();
+    }
+
+    public void updateStock(StockModel stockModel) {
+        new UpdateStockFutureTask(stockDao,stockModel).execute();
+    }
+
+    public void deleteStock(StockModel stockModel) {
+        new DeleteStockFutureTask(stockDao, stockModel).execute();
+    }
+
+    public LiveData<List<StockModel>> getStockData() {
+        return stockDao.getStockData();
+    }
+
+    private static class InsertStockFutureTask extends FutureTask<Void> {
+
+        private InsertStockFutureTask(StockDao stockDao, StockModel stockModel) {
+            super(() -> {
+                stockDao.insertNewStock(stockModel);
+                return null;
+            });
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+    private static class UpdateStockFutureTask extends FutureTask<Void> {
+
+        private UpdateStockFutureTask(StockDao stockDao, StockModel stockModel) {
+            super(() -> {
+                stockDao.updateNewStock(stockModel);
+                return null;
+            });
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+
+    private static class DeleteStockFutureTask extends FutureTask<Void> {
+
+        private DeleteStockFutureTask(StockDao stockDao, StockModel stockModel) {
+            super(() -> {
+                stockDao.insertNewStock(stockModel);
                 return null;
             });
         }

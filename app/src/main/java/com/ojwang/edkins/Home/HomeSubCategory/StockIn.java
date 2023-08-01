@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
@@ -24,11 +25,13 @@ public class StockIn extends AppCompatActivity {
 
         oldStockInfoBtn.setOnClickListener(v -> showInfoDialog("Click here to add restocked products! The 'Add Old Stock' button is here to help you easily update your system with freshly stocked products. If you've replenished your inventory, this is the place to let the system know."));
         newStockBtn.setOnClickListener(v -> {
-
+            Intent intent = new Intent(StockIn.this, NewStock.class);
+            startActivity(intent);
         });
 
         oldStockBtn.setOnClickListener(v -> {
-
+            Intent intent = new Intent(StockIn.this, StockInSub.class);
+            startActivity(intent);
         });
     }
 
