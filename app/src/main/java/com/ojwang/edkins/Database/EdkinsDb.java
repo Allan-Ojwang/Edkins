@@ -13,12 +13,14 @@ import com.ojwang.edkins.Home.HomeSubCategory.Dao.CreditorDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.DebtorDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.PaybillDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.StockDao;
+import com.ojwang.edkins.Home.HomeSubCategory.Dao.StoreDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.ToOrderDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.WorkerDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.CreditorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.DebtorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.PaybillModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.StockModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.StoreModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderListModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.WorkerDebtModel;
@@ -27,7 +29,7 @@ import com.ojwang.edkins.Home.HomeSubCategory.Model.WorkerModel;
 import java.util.concurrent.FutureTask;
 
 @Database(entities = {PaybillModel.class, WorkerModel.class, CreditorModel.class, DebtorModel.class,
-        WorkerDebtModel.class, ToOrderModel.class, ToOrderListModel.class, StockModel.class},version = 2,exportSchema = false)
+        WorkerDebtModel.class, ToOrderModel.class, ToOrderListModel.class, StockModel.class, StoreModel.class},version = 2,exportSchema = false)
 public abstract class EdkinsDb extends RoomDatabase {
     public static EdkinsDb instance;
 
@@ -37,6 +39,7 @@ public abstract class EdkinsDb extends RoomDatabase {
     public abstract DebtorDao debtorDao();
     public abstract ToOrderDao toOrderDao();
     public abstract StockDao stockDao();
+    public abstract StoreDao storeDao();
 
     public static synchronized EdkinsDb getInstance(Context context){
         if (instance==null){
@@ -65,6 +68,7 @@ public abstract class EdkinsDb extends RoomDatabase {
                 DebtorDao debtorDao = db.debtorDao();
                 ToOrderDao toOrderDao = db.toOrderDao();
                 StockDao stockDao = db.stockDao();
+                StoreDao storeDao = db.storeDao();
                 // Perform database operations here
                 return null;
             });

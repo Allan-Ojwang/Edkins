@@ -27,7 +27,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingHorizontal="20dp"
+                android:paddingHorizontal="25dp"
                 android:gravity="start">
                 <TextView
                     android:id="@+id/storeTitle"
@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
-        android:paddingHorizontal="20dp"
+        android:paddingHorizontal="25dp"
         android:text="Store Name"
         android:textColor="@color/text"
         android:textSize="16sp"
@@ -81,7 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/evStoreName"
             android:layout_width="360dp"
             android:layout_height="50dp"
             android:padding="10dp"

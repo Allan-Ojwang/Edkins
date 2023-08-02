@@ -10,6 +10,7 @@ import com.ojwang.edkins.Home.HomeSubCategory.Model.CreditorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.DebtorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.PaybillModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.StockModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.StoreModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderListModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.WorkerDebtModel;
@@ -28,6 +29,7 @@ public class MainViewModel extends AndroidViewModel {
     private final LiveData<List<DebtorModel>> debtorData;
     private final LiveData<List<DebtorModel>> paidDebtorData;
     private final LiveData<List<StockModel>> stockData;
+    private final LiveData<List<StoreModel>> storeData;
     public MainViewModel(@NonNull Application application) {
         super(application);
         mainRepo = new MainRepo(application);
@@ -39,6 +41,7 @@ public class MainViewModel extends AndroidViewModel {
         paidDebtorData = mainRepo.getPaidDebtorNotes();
         toOrderData = mainRepo.getToOrderNotes();
         stockData = mainRepo.getStockData();
+        storeData = mainRepo.getStoresNotes();
     }
 
     public void insertPaybill (PaybillModel paybillModel){
@@ -155,8 +158,16 @@ public class MainViewModel extends AndroidViewModel {
         mainRepo.updateStock(stockModel);
     }
     public void deleteStock (StockModel stockModel){mainRepo.deleteStock(stockModel);}
-
     public LiveData<List<StockModel>> searchStock(String query){
         return mainRepo.searchStock(query);
     }
+
+    public LiveData<List<StoreModel>> getStoreData(){return storeData;}
+    public void insertStore(StoreModel storeModel) {
+        mainRepo.insertStore(storeModel);
+    }
+    public void updateStore(StoreModel storeModel) {
+        mainRepo.updateStore(storeModel);
+    }
+    public void deleteStore(StoreModel storeModel){mainRepo.deleteStore(storeModel);}
 }

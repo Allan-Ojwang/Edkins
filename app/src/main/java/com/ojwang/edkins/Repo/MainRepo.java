@@ -11,12 +11,14 @@ import com.ojwang.edkins.Home.HomeSubCategory.Dao.CreditorDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.DebtorDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.PaybillDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.StockDao;
+import com.ojwang.edkins.Home.HomeSubCategory.Dao.StoreDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.ToOrderDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Dao.WorkerDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.CreditorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.DebtorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.PaybillModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.StockModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.StoreModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderListModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.WorkerDebtModel;
@@ -52,6 +54,8 @@ public class MainRepo {
     private final StockDao stockDao;
     LiveData<List<StockModel>> stockData;
 
+    private final StoreDao storeDao;
+    LiveData<List<StoreModel>> storeData;
     public MainRepo(Application application) {
         EdkinsDb db = EdkinsDb.getInstance(application);
         paybillDao = db.paybillDao();
@@ -72,6 +76,8 @@ public class MainRepo {
         toOrderData = toOrderDao.getToOrderData();
         stockDao = db.stockDao();
         stockData = stockDao.getStockData();
+        storeDao = db.storeDao();
+        storeData = storeDao.getStoreData();
     }
 
     //    PAYBILL NOTE
@@ -685,6 +691,84 @@ public class MainRepo {
                 stockDao.deleteNewStock(stockModel);
                 return null;
             });
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+
+    //    STORE NOTE
+    public void insertStore(StoreModel storeModel) {
+        new InsertStoreFutureTask(storeDao,storeModel).execute();
+    }
+
+    public void updateStore(StoreModel storeModel) {
+        new UpdateStoreFutureTask(storeDao,storeModel).execute();
+    }
+
+    public void deleteStore(StoreModel storeModel) {
+        new DeleteStoreFutureTask(storeDao,storeModel).execute();
+    }
+
+    public LiveData<List<StoreModel>> getStoresNotes() {
+        return storeData;
+    }
+
+
+    private static class InsertStoreFutureTask extends FutureTask<Void>{
+
+        private InsertStoreFutureTask(StoreDao storeDao, StoreModel storeModel) {
+            super(() -> {
+                storeDao.insertNewStore(storeModel);
+                return null;
+            });
+
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+
+    private static class UpdateStoreFutureTask extends FutureTask<Void>{
+
+        private UpdateStoreFutureTask(StoreDao storeDao, StoreModel storeModel) {
+            super(() -> {
+                storeDao.updateNewStore(storeModel);
+                return null;
+            });
+
+        }
+
+        public void execute() {
+            AsyncTask.THREAD_POOL_EXECUTOR.execute(this);
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            super.cancel(mayInterruptIfRunning);
+            return mayInterruptIfRunning;
+        }
+    }
+
+    private static class DeleteStoreFutureTask extends FutureTask<Void>{
+
+        private DeleteStoreFutureTask(StoreDao storeDao, StoreModel storeModel) {
+            super(() -> {
+                storeDao.deleteNewStore(storeModel);
+                return null;
+            });
+
         }
 
         public void execute() {
