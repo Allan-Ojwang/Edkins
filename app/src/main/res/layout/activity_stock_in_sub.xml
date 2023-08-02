@@ -71,11 +71,10 @@
             tools:ignore="HardcodedText" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/evDate"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:padding="10dp"
-            android:inputType="text"
             android:hint="Enter the date"
             android:autofillHints="Enter the date"
             android:textColor="@color/text"
@@ -90,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center">
 
         <TextView
             android:layout_width="80dp"
@@ -102,18 +101,29 @@
             android:textSize="16sp"
             tools:ignore="HardcodedText,TextSizeCheck" />
 
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:padding="10dp"
-            android:inputType="text"
-            android:hint="Select the product"
-            android:autofillHints="Select the product"
-            android:textColor="@color/text"
-            android:textColorHint="@color/text"
-            android:background="@drawable/edit_text"
-            tools:ignore="HardcodedText" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageButton
+                android:id="@+id/productBtn"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:background="@drawable/edit_text"
+                android:contentDescription="Old stock info"
+                tools:ignore="HardcodedText,TouchTargetSizeCheck" />
+            <TextView
+                android:id="@+id/productName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select the product"
+                android:layout_margin="10dp"
+                android:textColor="@color/text"
+                android:textSize="18sp"/>
+
+
+        </FrameLayout>
 
     </LinearLayout>
 
@@ -137,7 +147,7 @@
             tools:ignore="HardcodedText,TextSizeCheck" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/evBuyingPrice"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:padding="10dp"
@@ -145,7 +155,7 @@
             android:autofillHints="Enter the selling price"
             android:textColor="@color/text"
             android:textColorHint="@color/text"
-            android:inputType="text"
+            android:inputType="number"
             android:background="@drawable/edit_text"
             tools:ignore="HardcodedText" />
 
@@ -169,7 +179,7 @@
             tools:ignore="HardcodedText,TextSizeCheck" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/evQuantity"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:padding="10dp"
@@ -177,10 +187,22 @@
             android:autofillHints="Enter the quantity"
             android:textColor="@color/text"
             android:textColorHint="@color/text"
-            android:inputType="text"
+            android:inputType="number"
             android:background="@drawable/edit_text"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>
 
+<!--    <EditText-->
+<!--        android:id="@+id/editText2"-->
+<!--        android:layout_width="250dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:padding="10dp"-->
+<!--        android:inputType="text"-->
+<!--        android:hint="Select the product"-->
+<!--        android:autofillHints="Select the product"-->
+<!--        android:textColor="@color/text"-->
+<!--        android:textColorHint="@color/text"-->
+<!--        android:background="@drawable/edit_text"-->
+<!--        tools:ignore="HardcodedText" />-->
 </LinearLayout>

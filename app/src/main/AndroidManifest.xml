@@ -12,23 +12,26 @@
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
         tools:targetApi="tiramisu">
-
+        <activity
+            android:name=".Home.HomeSubCategory.Store"
+            android:exported="false"
+            android:theme="@style/ScreenTheme"/>
         <activity
             android:name=".Home.HomeSubCategory.NewStockSub"
             android:exported="false"
-            android:theme="@style/ScreenTheme"/>
+            android:theme="@style/ScreenTheme" />
         <activity
             android:name=".Home.HomeSubCategory.NewStock"
             android:exported="false"
-            android:theme="@style/ScreenTheme"/>
+            android:theme="@style/ScreenTheme" />
         <activity
             android:name=".Home.HomeSubCategory.StockInSub"
             android:exported="false"
-            android:theme="@style/ScreenTheme"/>
+            android:theme="@style/ScreenTheme" />
         <activity
             android:name=".Home.HomeSubCategory.StockList"
             android:exported="false"
-            android:theme="@style/ScreenTheme"/>
+            android:theme="@style/ScreenTheme" />
         <activity
             android:name=".SplashScreen"
             android:exported="true"

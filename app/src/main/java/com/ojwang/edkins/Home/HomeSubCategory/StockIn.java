@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
+import com.ojwang.edkins.MainActivity;
 import com.ojwang.edkins.R;
 
 public class StockIn extends AppCompatActivity {
@@ -20,6 +21,14 @@ public class StockIn extends AppCompatActivity {
         ImageButton oldStockInfoBtn = findViewById(R.id.oldStockInfoBtn);
         ImageButton newStockBtn = findViewById(R.id.newStockBtn);
         ImageButton oldStockBtn = findViewById(R.id.oldStockBtn);
+        ImageButton backBtn = findViewById(R.id.backBtn);
+
+        backBtn.setOnClickListener(v ->{
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
+        });
 
         newStockInfoBtn.setOnClickListener(v -> showInfoDialog("Click this button to add a new product! The 'Add New Products' button is here to help you seamlessly update your system with newly stocked items that don't exist. If you've introduced new products to your inventory, this is where you can inform the system."));
 

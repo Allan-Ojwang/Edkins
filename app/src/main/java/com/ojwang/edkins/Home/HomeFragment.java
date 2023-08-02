@@ -17,6 +17,7 @@ import com.ojwang.edkins.Home.HomeSubCategory.DebtTracker;
 import com.ojwang.edkins.Home.HomeSubCategory.Paybills;
 import com.ojwang.edkins.Home.HomeSubCategory.StockIn;
 import com.ojwang.edkins.Home.HomeSubCategory.StockOut;
+import com.ojwang.edkins.Home.HomeSubCategory.Store;
 import com.ojwang.edkins.Home.HomeSubCategory.ToOrder;
 import com.ojwang.edkins.Home.HomeSubCategory.Workers;
 import com.ojwang.edkins.Home.HomeFragRecyclerviewModel.DashBtnModel;
@@ -62,6 +63,7 @@ public class HomeFragment extends Fragment implements DashBtnListener {
                 getString(R.string.head_4),
                 getString(R.string.head_5),
                 getString(R.string.head_6),
+                getString(R.string.stores),
         };
         imageResourseID = new int[]{
                 R.drawable.to_order,
@@ -70,6 +72,7 @@ public class HomeFragment extends Fragment implements DashBtnListener {
                 R.drawable.debt_tracker,
                 R.drawable.stock_out,
                 R.drawable.stock_in,
+                R.drawable.store,
         };
         for (int i =0; i<btnHeadings.length;i++){
             DashBtnModel dashBtnModel = new DashBtnModel(btnHeadings[i],imageResourseID[i]);
@@ -104,6 +107,10 @@ public class HomeFragment extends Fragment implements DashBtnListener {
             case 5:
                 Intent stock_in_intent = new Intent(getContext(), StockIn.class);
                 startActivity(stock_in_intent);
+                break;
+            case 6:
+                Intent store_intent = new Intent(getContext(), Store.class);
+                startActivity(store_intent);
                 break;
         }
     }
