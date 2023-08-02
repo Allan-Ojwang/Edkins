@@ -20,11 +20,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="Car And General"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="@font/poppins_bold"
             android:textAlignment="textStart"
             android:textColor="@color/text"
             android:textSize="18sp"
-            android:textStyle="bold"
             tools:ignore="HardcodedText" />
 
     </androidx.cardview.widget.CardView>
