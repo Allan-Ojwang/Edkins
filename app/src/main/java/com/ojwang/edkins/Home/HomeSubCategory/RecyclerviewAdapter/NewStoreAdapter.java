@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ojwang.edkins.Home.HomeSubCategory.Model.StockModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.StoreModel;
 import com.ojwang.edkins.R;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class NewStoreAdapter extends RecyclerView.Adapter<NewStoreAdapter.NewStockHolder> {
 
-    private static List<StockModel> stockModels = new ArrayList<>();
+    private static List<StoreModel> storeModels = new ArrayList<>();
     private static OnItemClickListener listener;
 
     @NonNull
@@ -29,24 +30,24 @@ public class NewStoreAdapter extends RecyclerView.Adapter<NewStoreAdapter.NewSto
 
     @Override
     public void onBindViewHolder(@NonNull NewStoreAdapter.NewStockHolder holder, int position) {
-        StockModel currentStock = stockModels.get(position);
-        holder.name.setText(currentStock.getProductName());
+        StoreModel currentStore = storeModels.get(position);
+        holder.name.setText(currentStore.getStoreName());
 
     }
 
     @Override
     public int getItemCount() {
-        return stockModels.size();
+        return storeModels.size();
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setStockModels(List<StockModel> stockModels) {
-        NewStoreAdapter.stockModels = stockModels;
+    public void setStoreModels(List<StoreModel> storeModels) {
+        NewStoreAdapter.storeModels = storeModels;
         notifyDataSetChanged();
     }
 
-    public StockModel getStockAt(int postion){
-        return stockModels.get(postion);
+    public StoreModel getStoreAt(int postion){
+        return storeModels.get(postion);
     }
 
     public static class NewStockHolder extends RecyclerView.ViewHolder {
@@ -55,19 +56,18 @@ public class NewStoreAdapter extends RecyclerView.Adapter<NewStoreAdapter.NewSto
 
         public NewStockHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.stockName);
-
+            name = itemView.findViewById(R.id.storeName);
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (listener != null && position != RecyclerView.NO_POSITION) {
-                    listener.OnClick(stockModels.get(position),position);
+                    listener.OnClick(storeModels.get(position),position);
                 }
             });
         }
     }
     public interface OnItemClickListener{
-        void OnClick(StockModel stockModel, int position);
+        void OnClick(StoreModel storeModel, int position);
     }
     public void setOnClickListener(OnItemClickListener listener) {
         NewStoreAdapter.listener = listener;

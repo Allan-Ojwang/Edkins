@@ -7,10 +7,10 @@ import androidx.room.PrimaryKey;
 public class StoreModel {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String productName;
+    private String storeName;
 
-    public StoreModel(String productName) {
-        this.productName = productName;
+    public StoreModel(String storeName) {
+        this.storeName = storeName;
     }
 
     public int getId() {
@@ -21,11 +21,11 @@ public class StoreModel {
         this.id = id;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getStoreName() {
+        return storeName;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 }

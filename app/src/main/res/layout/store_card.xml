@@ -29,7 +29,7 @@
                 android:contentDescription="Store image"
                 tools:ignore="HardcodedText" />
             <TextView
-                android:id="@+id/stockName"
+                android:id="@+id/storeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Main Store"
