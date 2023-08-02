@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pop_up_bg">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/storeHeader">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingHorizontal="20dp"
+                android:gravity="start">
+                <TextView
+                    android:id="@+id/storeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Add Stores"
+                    android:textColor="@color/text"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
+            <ImageButton
+                android:id="@+id/closeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/cancel_btn"
+                android:contentDescription="Close"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/storeHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:paddingHorizontal="20dp"
+        android:text="Store Name"
+        android:textColor="@color/text"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/lowerLayout"
+        tools:ignore="HardcodedText" />
+
+    <LinearLayout
+        android:id="@+id/lowerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="360dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:layout_marginVertical="20dp"
+            android:inputType="text"
+            android:hint="Enter store name"
+            android:autofillHints="Enter the date"
+            android:textColor="@color/text"
+            android:textColorHint="@color/text"
+            android:background="@drawable/edit_text"
+            tools:ignore="HardcodedText"/>
+        <Button
+            android:id="@+id/saveBtn"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/cardBg"
+            android:textSize="20sp"
+            android:textColor="@color/text"
+            android:text="Save"
+            android:fontFamily="@font/poppins_extrabold"
+            android:contentDescription="save"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

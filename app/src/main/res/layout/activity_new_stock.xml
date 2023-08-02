@@ -69,7 +69,7 @@
             android:clickable="true"
             android:focusable="true"
             app:srcCompat="@drawable/float_add"
-            android:contentDescription="Add Paybill"
+            android:contentDescription="Add New Stock"
             tools:ignore="HardcodedText" />
 
     </RelativeLayout>

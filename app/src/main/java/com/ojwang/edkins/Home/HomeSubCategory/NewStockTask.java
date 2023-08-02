@@ -26,7 +26,7 @@ import com.ojwang.edkins.ViewModel.MainViewModel;
 import java.util.Objects;
 
 public class NewStockTask extends BottomSheetDialogFragment {
-    public static final String EDIT_TAG = "PAYBILL_ADD_TASK_EDITED";
+    public static final String EDIT_TAG = "NEW_STOCK_TASK_EDITED";
     private int adapterPos, id, sellingPrice;
     private String name;
 

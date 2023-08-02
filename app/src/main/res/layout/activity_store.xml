@@ -41,6 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -56,13 +57,12 @@
             </LinearLayout>
 
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/stockRecycleView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                tools:listitem="@layout/store_card"/>
+                tools:listitem="@layout/store_card" />
 
         </LinearLayout>
 
@@ -77,7 +77,7 @@
             android:clickable="true"
             android:focusable="true"
             app:srcCompat="@drawable/float_add"
-            android:contentDescription="Add Paybill"
+            android:contentDescription="Add Main Store"
             tools:ignore="HardcodedText" />
 
     </RelativeLayout>
