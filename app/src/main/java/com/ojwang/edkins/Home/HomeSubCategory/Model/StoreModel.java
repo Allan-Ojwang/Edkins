@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "store_table")
 public class StoreModel {
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private int storeId;
     private String storeName;
 
     public StoreModel(String storeName) {
@@ -14,11 +14,11 @@ public class StoreModel {
     }
 
     public int getId() {
-        return id;
+        return storeId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int storeId) {
+        this.storeId = storeId;
     }
 
     public String getStoreName() {
