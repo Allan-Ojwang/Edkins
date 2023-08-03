@@ -1,8 +1,8 @@
 package com.ojwang.edkins.Home.HomeSubCategory;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +17,9 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.ojwang.edkins.Home.HomeSubCategory.Model.StockModel;
+import com.ojwang.edkins.Home.ConfirmAlertDialog;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.StoreModel;
-import com.ojwang.edkins.Home.HomeSubCategory.RecyclerviewAdapter.NewStockAdapter;
+import com.ojwang.edkins.Home.HomeSubCategory.RecyclerviewAdapter.NewStoreAdapter;
 import com.ojwang.edkins.R;
 import com.ojwang.edkins.ViewModel.MainViewModel;
 
@@ -27,7 +27,7 @@ import java.util.Objects;
 
 public class NewStoreTask extends BottomSheetDialogFragment {
     public static final String EDIT_TAG = "NEW_STORE_TASK_EDITED";
-    private int adapterPos, sellingPrice;
+    private int adapterPos;
     private int id = -1;
     private String name;
 
@@ -39,9 +39,12 @@ public class NewStoreTask extends BottomSheetDialogFragment {
         MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         ImageButton closeBtn = view.findViewById(R.id.closeBtn);
+        ImageButton deleteBtn = view.findViewById(R.id.deleteBtn);
         EditText evStoreName = view.findViewById(R.id.evStoreName);
         TextView tvStoreTitle = view.findViewById(R.id.storeTitle);
         Button saveBtn = view.findViewById(R.id.saveBtn);
+
+        NewStoreAdapter newStoreAdapter = new NewStoreAdapter();
 
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -57,8 +60,6 @@ public class NewStoreTask extends BottomSheetDialogFragment {
                 Toast.makeText(getContext(), "Please enter the store name", Toast.LENGTH_SHORT).show();
             } else{
                 String name = evStoreName.getText().toString();
-                Log.e("NAME",name);
-                Log.e("ID", String.valueOf(id));
 
                 StoreModel storeModel = new StoreModel(name);
 
@@ -74,6 +75,34 @@ public class NewStoreTask extends BottomSheetDialogFragment {
                 }
             }
         });
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(getContext(), "Are you sure you want to delete this store?", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                //Delete
+                                if (id != -1){
+                                    mainViewModel.deleteStore(newStoreAdapter.getStoreAt(adapterPos));
+                                    Objects.requireNonNull(getDialog()).dismiss();
+                                } else {
+                                    Toast.makeText(getContext(), "Please select a store to delete", Toast.LENGTH_SHORT).show();
+                                }
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //Do nothing
+                                break;
+                        }
+
+                    }
+                });
+                confirmAlertDialog.showDialog();
+            }
+        });
+
         closeBtn.setOnClickListener(v -> Objects.requireNonNull(getDialog()).dismiss());
 
         return view;

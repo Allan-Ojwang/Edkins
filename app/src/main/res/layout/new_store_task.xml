@@ -41,6 +41,16 @@
 
             </LinearLayout>
             <ImageButton
+                android:id="@+id/deleteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:layout_marginHorizontal="15dp"
+                android:background="@drawable/delete_outline_rounded"
+                android:contentDescription="Delete product"
+                tools:ignore="HardcodedText,TouchTargetSizeCheck" />
+            <ImageButton
                 android:id="@+id/closeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
