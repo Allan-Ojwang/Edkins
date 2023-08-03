@@ -29,7 +29,7 @@ import com.ojwang.edkins.Home.HomeSubCategory.Model.WorkerModel;
 import java.util.concurrent.FutureTask;
 
 @Database(entities = {PaybillModel.class, WorkerModel.class, CreditorModel.class, DebtorModel.class,
-        WorkerDebtModel.class, ToOrderModel.class, ToOrderListModel.class, StockModel.class, StoreModel.class},version = 2,exportSchema = false)
+        WorkerDebtModel.class, ToOrderModel.class, ToOrderListModel.class, StockModel.class, StoreModel.class},version = 1,exportSchema = false)
 public abstract class EdkinsDb extends RoomDatabase {
     public static EdkinsDb instance;
 

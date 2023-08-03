@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_bold"
-                    android:text="Add Stores"
+                    android:text="Add Store"
                     android:textColor="@color/text"
                     android:textSize="20sp"
                     tools:ignore="HardcodedText" />
@@ -82,7 +82,7 @@
         app:layout_constraintStart_toStartOf="parent">
         <EditText
             android:id="@+id/evStoreName"
-            android:layout_width="360dp"
+            android:layout_width="310dp"
             android:layout_height="50dp"
             android:padding="10dp"
             android:layout_marginVertical="20dp"

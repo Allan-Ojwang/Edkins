@@ -35,7 +35,6 @@ public class NewStockSub extends AppCompatActivity {
             int sellingPrice = intent.getIntExtra("SELLING-PRICE", 0);
             evName.setText(name);
             evSp.setText(String.valueOf(sellingPrice));
-
         }
 
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);

@@ -62,9 +62,8 @@ public class NewStock extends AppCompatActivity {
                 newStockTask.show(getSupportFragmentManager(),NewStockTask.EDIT_TAG);
 
             }
-
-
         });
+
         backBtn.setOnClickListener(v -> finish());
         addFloatingActionButton.setOnClickListener(v -> {
             Intent intent = new Intent(NewStock.this, NewStockSub.class);
