@@ -13,11 +13,11 @@ public class StoreModel {
         this.storeName = storeName;
     }
 
-    public int getId() {
+    public int getStoreId() {
         return storeId;
     }
 
-    public void setId(int storeId) {
+    public void setStoreId(int storeId) {
         this.storeId = storeId;
     }
 
@@ -28,4 +28,5 @@ public class StoreModel {
     public void setStoreName(String storeName) {
         this.storeName = storeName;
     }
+
 }

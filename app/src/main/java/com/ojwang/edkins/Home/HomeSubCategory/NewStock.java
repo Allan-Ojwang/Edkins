@@ -54,7 +54,7 @@ public class NewStock extends AppCompatActivity {
             public void OnClick(StockModel stockModel, int position) {
                 NewStockTask newStockTask = new NewStockTask();
                 Bundle bundle = new Bundle();
-                bundle.putInt("ID",stockModel.getId());
+                bundle.putInt("ID",stockModel.getStockId());
                 bundle.putString("PRODUCT-NAME",stockModel.getProductName());
                 bundle.putInt("SELLING-PRICE",stockModel.getSellingPrice());
                 bundle.putInt("ADAPTERPOS",position);

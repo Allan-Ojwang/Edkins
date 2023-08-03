@@ -51,7 +51,7 @@ public class NewStockSub extends AppCompatActivity {
                 StockModel stockModel = new StockModel(name, sellingPrice);
 
                 if (id != -1){
-                    stockModel.setId(id);
+                    stockModel.setStockId(id);
                     mainViewModel.updateStock(stockModel);
                     Toast.makeText(this, "Data updated successfully", Toast.LENGTH_SHORT).show();
                     finish();

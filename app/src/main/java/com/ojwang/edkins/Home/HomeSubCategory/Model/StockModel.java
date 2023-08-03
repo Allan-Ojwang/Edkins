@@ -15,11 +15,11 @@ public class StockModel {
         this.sellingPrice = sellingPrice;
     }
 
-    public int getId() {
+    public int getStockId() {
         return stockId;
     }
 
-    public void setId(int stockId) {
+    public void setStockId(int stockId) {
         this.stockId = stockId;
     }
 

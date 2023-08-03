@@ -64,7 +64,7 @@ public class NewStoreTask extends BottomSheetDialogFragment {
                 StoreModel storeModel = new StoreModel(name);
 
                 if (id != -1){
-                    storeModel.setId(id);
+                    storeModel.setStoreId(id);
                     mainViewModel.updateStore(storeModel);
                     Toast.makeText(getContext(), "Data updated successfully", Toast.LENGTH_SHORT).show();
                     Objects.requireNonNull(getDialog()).dismiss();

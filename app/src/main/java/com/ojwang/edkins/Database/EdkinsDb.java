@@ -19,7 +19,9 @@ import com.ojwang.edkins.Home.HomeSubCategory.Dao.WorkerDao;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.CreditorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.DebtorModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.PaybillModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.StockInModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.StockModel;
+import com.ojwang.edkins.Home.HomeSubCategory.Model.StockOutModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.StoreModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderListModel;
 import com.ojwang.edkins.Home.HomeSubCategory.Model.ToOrderModel;
@@ -29,7 +31,8 @@ import com.ojwang.edkins.Home.HomeSubCategory.Model.WorkerModel;
 import java.util.concurrent.FutureTask;
 
 @Database(entities = {PaybillModel.class, WorkerModel.class, CreditorModel.class, DebtorModel.class,
-        WorkerDebtModel.class, ToOrderModel.class, ToOrderListModel.class, StockModel.class, StoreModel.class},version = 1,exportSchema = false)
+        WorkerDebtModel.class, ToOrderModel.class, ToOrderListModel.class, StockModel.class,
+        StoreModel.class, StockInModel.class, StockOutModel.class},version = 1,exportSchema = false)
 public abstract class EdkinsDb extends RoomDatabase {
     public static EdkinsDb instance;
 

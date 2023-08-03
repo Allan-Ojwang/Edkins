@@ -50,7 +50,7 @@ public class Store extends AppCompatActivity {
             public void OnClick(StoreModel storeModel, int position) {
                 NewStoreTask newStoreTask = new NewStoreTask();
                 Bundle bundle = new Bundle();
-                bundle.putInt("ID",storeModel.getId());
+                bundle.putInt("ID",storeModel.getStoreId());
                 bundle.putString("STORE-NAME",storeModel.getStoreName());
                 bundle.putInt("ADAPTERPOS",position);
                 newStoreTask.setArguments(bundle);
