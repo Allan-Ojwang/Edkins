@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryBg"
-    tools:context=".Home.HomeSubCategory.DebtTracker">
+    tools:context=".home.homeSubCategory.DebtTracker">
 
     <LinearLayout
         android:layout_width="match_parent"

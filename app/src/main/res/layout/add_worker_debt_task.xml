@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:autofillHints="Write the amount"
-        android:backgroundTint="@color/text"
+        android:background="@drawable/edit_text"
         android:hint="Write the amount"
         android:inputType="number"
         android:minHeight="48dp"
@@ -54,7 +54,7 @@
         android:textColorHint="@color/text"
         app:layout_constraintBottom_toTopOf="@id/radioGroup"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="HardcodedText,TextFields,VisualLintTextFieldSize" />
+        tools:ignore="HardcodedText,VisualLintTextFieldSize" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -101,8 +101,7 @@
             android:id="@+id/saveBtn"
             android:layout_width="120dp"
             android:layout_height="60dp"
-            android:layout_marginVertical="40dp"
-            android:layout_marginHorizontal="20dp"
+            android:layout_margin="20dp"
             android:backgroundTint="@color/cardBg"
             android:textSize="20sp"
             android:fontFamily="@font/poppins_extrabold"
@@ -114,8 +113,7 @@
             android:id="@+id/deleteBtn"
             android:layout_width="120dp"
             android:layout_height="60dp"
-            android:layout_marginVertical="40dp"
-            android:layout_marginHorizontal="20dp"
+            android:layout_margin="20dp"
             android:backgroundTint="@color/red"
             android:textSize="20sp"
             android:fontFamily="@font/poppins_extrabold"

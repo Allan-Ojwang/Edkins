@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryBg"
-    tools:context=".Home.HomeSubCategory.Paybills">
+    tools:context=".home.homeSubCategory.Paybills">
 
 <!--    TODO: Add Nested scroll view and change color of search view icon and hint-->
     <RelativeLayout

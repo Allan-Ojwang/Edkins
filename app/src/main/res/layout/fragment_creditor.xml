@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/primaryBg"
-    tools:context=".Home.HomeSubCategory.CreditorFragment">
+    tools:context=".home.homeSubCategory.CreditorFragment">
 
     <TextView
         android:id="@+id/totalAmount"

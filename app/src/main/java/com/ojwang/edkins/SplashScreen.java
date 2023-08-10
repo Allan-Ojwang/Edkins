@@ -1,5 +1,6 @@
 package com.ojwang.edkins;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
@@ -20,24 +21,24 @@ public class SplashScreen extends AppCompatActivity {
         LottieAnimationView lottieAnimationView = findViewById(R.id.lottieAnimationView);
         lottieAnimationView.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
-            public void onAnimationStart(Animator animation) {
+            public void onAnimationStart(@NonNull Animator animation) {
                 // Animation started (optional)
             }
 
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationEnd(@NonNull Animator animation) {
                 // Animation ended, navigate to the main activity
                 startActivity(new Intent(SplashScreen.this, MainActivity.class));
                 finish();
             }
 
             @Override
-            public void onAnimationCancel(Animator animation) {
+            public void onAnimationCancel(@NonNull Animator animation) {
                 // Animation canceled (optional)
             }
 
             @Override
-            public void onAnimationRepeat(Animator animation) {
+            public void onAnimationRepeat(@NonNull Animator animation) {
                 // Animation repeated (optional)
             }
         });

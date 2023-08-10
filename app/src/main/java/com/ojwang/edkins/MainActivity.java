@@ -9,10 +9,10 @@ import android.os.Bundle;
 import android.os.StrictMode;
 
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
-import com.ojwang.edkins.Setting.SettingFragment;
-import com.ojwang.edkins.Home.HomeFragment;
-import com.ojwang.edkins.Profile.ProfileFragment;
-import com.ojwang.edkins.Search.SearchFragment;
+import com.ojwang.edkins.setting.SettingFragment;
+import com.ojwang.edkins.home.HomeFragment;
+import com.ojwang.edkins.profile.ProfileFragment;
+import com.ojwang.edkins.search.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
 

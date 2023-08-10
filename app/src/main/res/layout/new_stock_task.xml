@@ -17,13 +17,14 @@
         app:layout_constraintBottom_toTopOf="@+id/productName">
 
         <TextView
-            android:layout_width="190dp"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="Product Information"
+            android:text="Product&#xA;Information"
+            android:textAllCaps="true"
             android:textSize="18sp"
             android:textColor="@color/text"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/poppins_medium"
             tools:ignore="HardcodedText" />
 
 

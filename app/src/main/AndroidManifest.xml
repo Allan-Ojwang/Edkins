@@ -13,23 +13,27 @@
         android:supportsRtl="true"
         tools:targetApi="tiramisu">
         <activity
-            android:name=".Home.HomeSubCategory.Store"
+            android:name=".home.homeSubCategory.StoreList"
             android:exported="false"
             android:theme="@style/ScreenTheme"/>
         <activity
-            android:name=".Home.HomeSubCategory.NewStockSub"
+            android:name=".home.homeSubCategory.Store"
             android:exported="false"
             android:theme="@style/ScreenTheme" />
         <activity
-            android:name=".Home.HomeSubCategory.NewStock"
+            android:name=".home.homeSubCategory.NewStockSub"
             android:exported="false"
             android:theme="@style/ScreenTheme" />
         <activity
-            android:name=".Home.HomeSubCategory.StockInSub"
+            android:name=".home.homeSubCategory.NewStock"
             android:exported="false"
             android:theme="@style/ScreenTheme" />
         <activity
-            android:name=".Home.HomeSubCategory.StockList"
+            android:name=".home.homeSubCategory.StockIn"
+            android:exported="false"
+            android:theme="@style/ScreenTheme" />
+        <activity
+            android:name=".home.homeSubCategory.StockList"
             android:exported="false"
             android:theme="@style/ScreenTheme" />
         <activity
@@ -43,19 +47,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Home.HomeSubCategory.PaidDebt"
+            android:name=".home.homeSubCategory.PaidDebt"
             android:exported="false"
             android:theme="@style/ScreenTheme" />
         <activity
-            android:name=".Home.HomeSubCategory.ToOrderSub"
+            android:name=".home.homeSubCategory.ToOrderSub"
             android:exported="false"
             android:theme="@style/ScreenTheme" />
         <activity
-            android:name=".Home.HomeSubCategory.WorkerDebt"
+            android:name=".home.homeSubCategory.WorkerDebt"
             android:exported="false"
             android:theme="@style/ScreenTheme" />
         <activity
-            android:name=".Home.HomeSubCategory.StockOut"
+            android:name=".home.homeSubCategory.StockOut"
             android:exported="false"
             android:theme="@style/ScreenTheme">
             <meta-data
@@ -63,7 +67,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Home.HomeSubCategory.DebtTracker"
+            android:name=".home.homeSubCategory.DebtTracker"
             android:exported="false"
             android:theme="@style/ScreenTheme">
             <meta-data
@@ -71,7 +75,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Home.HomeSubCategory.Workers"
+            android:name=".home.homeSubCategory.Workers"
             android:exported="false"
             android:theme="@style/ScreenTheme">
             <meta-data
@@ -79,15 +83,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Home.HomeSubCategory.StockIn"
-            android:exported="false"
-            android:theme="@style/ScreenTheme">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".Home.HomeSubCategory.Paybills"
+            android:name=".home.homeSubCategory.Paybills"
             android:exported="false"
             android:parentActivityName=".MainActivity"
             android:theme="@style/ScreenTheme">
@@ -96,7 +92,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Home.HomeSubCategory.ToOrder"
+            android:name=".home.homeSubCategory.ToOrder"
             android:exported="false"
             android:theme="@style/ScreenTheme">
             <meta-data

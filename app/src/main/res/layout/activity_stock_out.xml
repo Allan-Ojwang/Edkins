@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/primaryBg"
-    tools:context=".Home.HomeSubCategory.StockOut">
+    tools:context=".home.homeSubCategory.StockOut">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center">
 
         <TextView
             android:layout_width="80dp"
@@ -70,18 +70,34 @@
             android:textColor="@color/text"
             tools:ignore="HardcodedText" />
 
-        <EditText
-            android:id="@+id/editText1"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:padding="10dp"
-            android:inputType="text"
-            android:hint="Enter the date"
-            android:autofillHints="Enter the date"
-            android:textColor="@color/text"
-            android:textColorHint="@color/text"
-            android:background="@drawable/edit_text"
-            tools:ignore="HardcodedText"/>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <EditText
+                android:id="@+id/evDate"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:inputType="none"
+                android:focusable="false"
+                android:hint="Select the date"
+                android:autofillHints="Select the date"
+                android:textColor="@color/text"
+                android:textColorHint="@color/text"
+                android:background="@drawable/edit_text"
+                tools:ignore="HardcodedText,TextFields"/>
+            <ImageButton
+                android:id="@+id/dateBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/date"
+                android:contentDescription="Date image"
+                tools:ignore="HardcodedText,TouchTargetSizeCheck" />
+        </FrameLayout>
 
     </LinearLayout>
 
@@ -106,28 +122,86 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
-
-            <ImageButton
-                android:id="@+id/productBtn"
+            <TextView
+                android:id="@+id/pId"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:text="id"
+                android:textColor="@color/white"
+                tools:ignore="HardcodedText" />
+            <EditText
+                android:id="@+id/evProductName"
                 android:layout_width="250dp"
                 android:layout_height="50dp"
-                android:background="@drawable/search_view_bg"
-                android:contentDescription="Old stock info"
-                tools:ignore="HardcodedText,TouchTargetSizeCheck" />
-            <TextView
-                android:id="@+id/productName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Select the product"
-                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:inputType="none"
+                android:focusable="false"
+                android:hint="Select the product"
+                android:autofillHints="Select the product"
                 android:textColor="@color/text"
-                android:textSize="18sp"/>
-
-
+                android:textColorHint="@color/text"
+                android:background="@drawable/edit_text"
+                tools:ignore="HardcodedText"/>
+            <ImageButton
+                android:id="@+id/productBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/stock_in"
+                android:contentDescription="Product image"
+                tools:ignore="HardcodedText,TouchTargetSizeCheck" />
         </FrameLayout>
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:orientation="horizontal"
+        android:gravity="center">
 
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Store"
+            android:textColor="@color/text"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText,TextSizeCheck" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <EditText
+                android:id="@+id/evStore"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:inputType="none"
+                android:focusable="false"
+                android:hint="Select the store"
+                android:autofillHints="Select the store"
+                android:textColor="@color/text"
+                android:textColorHint="@color/text"
+                android:background="@drawable/edit_text"
+                tools:ignore="HardcodedText"/>
+            <ImageButton
+                android:id="@+id/storeBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/store"
+                android:contentDescription="Store image"
+                tools:ignore="HardcodedText,TouchTargetSizeCheck" />
+        </FrameLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -147,7 +221,7 @@
             tools:ignore="HardcodedText,TextSizeCheck" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/sellingPrice"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:padding="10dp"
@@ -179,7 +253,7 @@
             tools:ignore="HardcodedText,TextSizeCheck" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/quantity"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:padding="10dp"

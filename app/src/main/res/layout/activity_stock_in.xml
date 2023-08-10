@@ -3,99 +3,269 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".Home.HomeSubCategory.StockIn">
-
+    android:background="@color/primaryBg"
+    tools:context=".home.homeSubCategory.StockIn">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginBottom="60dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="50dp"
         android:background="@color/dashBg"
-        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/backBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
+            android:layout_gravity="start|top"
+            android:layout_margin="10dp"
             android:background="@drawable/back"
             android:contentDescription="Back"
             android:minWidth="48dp"
             android:minHeight="48dp"
             tools:ignore="HardcodedText" />
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Stock In Dashboard"
+            android:text="Stock In"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
             android:fontFamily="@font/poppins_extrabold"
-            android:layout_marginStart="20dp"
             android:textColor="@color/text"
+            android:textSize="18sp"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/saveBtn"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/accentBg"
             android:textSize="20sp"
+            android:textColor="@color/text"
+            android:text="Save"
+            android:fontFamily="@font/poppins_extrabold"
+            android:contentDescription="save"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>
 
-
-    <FrameLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginVertical="60dp">
+        android:layout_marginVertical="10dp"
+        android:orientation="horizontal"
+        android:gravity="center">
 
-        <ImageButton
-            android:id="@+id/newStockBtn"
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/new_stock"
-            android:contentDescription="New stock"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
+            android:layout_marginHorizontal="10dp"
+            android:text="Date"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/text"
             tools:ignore="HardcodedText" />
 
-        <ImageButton
-            android:id="@+id/newStockInfoBtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="end"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/info_btn"
-            android:contentDescription="Another image"
-            android:padding="20dp"
-            tools:ignore="HardcodedText,TouchTargetSizeCheck" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginVertical="60dp">
-
-
-        <ImageButton
-            android:id="@+id/oldStockBtn"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/old_stock"
-            android:contentDescription="Old stock"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
+            android:layout_gravity="center">
+            <EditText
+                android:id="@+id/evDate"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:inputType="none"
+                android:focusable="false"
+                android:hint="Select the date"
+                android:autofillHints="Select the date"
+                android:textColor="@color/text"
+                android:textColorHint="@color/text"
+                android:background="@drawable/edit_text"
+                tools:ignore="HardcodedText,TextFields"/>
+            <ImageButton
+                android:id="@+id/dateBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/date"
+                android:contentDescription="Date image"
+                tools:ignore="HardcodedText,TouchTargetSizeCheck" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Product"
+            android:textColor="@color/text"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText,TextSizeCheck" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <TextView
+                android:id="@+id/pId"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:text="id"
+                android:textColor="@color/white"
+                tools:ignore="HardcodedText,VisualLintOverlap" />
+            <EditText
+                android:id="@+id/evProductName"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:inputType="none"
+                android:focusable="false"
+                android:hint="Select the product"
+                android:autofillHints="Select the product"
+                android:textColor="@color/text"
+                android:textColorHint="@color/text"
+                android:background="@drawable/edit_text"
+                tools:ignore="HardcodedText"/>
+            <ImageButton
+                android:id="@+id/productBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/stock_in"
+                android:contentDescription="Product image"
+                tools:ignore="HardcodedText,TouchTargetSizeCheck" />
+        </FrameLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Store"
+            android:textColor="@color/text"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText,TextSizeCheck" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <EditText
+                android:id="@+id/evStore"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:inputType="none"
+                android:focusable="false"
+                android:hint="Select the store"
+                android:autofillHints="Select the store"
+                android:textColor="@color/text"
+                android:textColorHint="@color/text"
+                android:background="@drawable/edit_text"
+                tools:ignore="HardcodedText"/>
+            <ImageButton
+                android:id="@+id/storeBtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/store"
+                android:contentDescription="Store image"
+                tools:ignore="HardcodedText,TouchTargetSizeCheck" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginVertical="10dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="-15dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Price Bought"
+            android:textColor="@color/text"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText,TextSizeCheck,VisualLintBounds" />
+
+        <EditText
+            android:id="@+id/evBuyingPrice"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:hint="Enter the buying price"
+            android:autofillHints="Enter the selling price"
+            android:textColor="@color/text"
+            android:textColorHint="@color/text"
+            android:inputType="number"
+            android:background="@drawable/edit_text"
             tools:ignore="HardcodedText" />
 
-        <ImageButton
-            android:id="@+id/oldStockInfoBtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="end"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/info_btn"
-            android:contentDescription="Old stock info"
-            tools:ignore="HardcodedText,TouchTargetSizeCheck" />
+    </LinearLayout>
 
-    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginVertical="10dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Quantity"
+            android:textColor="@color/text"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText,TextSizeCheck" />
+
+        <EditText
+            android:id="@+id/evQuantity"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:hint="Enter the quantity"
+            android:autofillHints="Enter the quantity"
+            android:textColor="@color/text"
+            android:textColorHint="@color/text"
+            android:inputType="number"
+            android:background="@drawable/edit_text"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
 
 </LinearLayout>

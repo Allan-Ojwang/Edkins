@@ -7,5 +7,6 @@
     <string name="head_5">Stock Out</string>
     <string name="head_6">Stock In</string>
     <string name="stores">Stores</string>
+    <string name="stock">Stock</string>
 
 </resources>

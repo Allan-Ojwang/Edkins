@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/primaryBg"
-    tools:context=".Home.HomeSubCategory.PaidDebtorFragment">
+    tools:context=".home.homeSubCategory.PaidDebtorFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView

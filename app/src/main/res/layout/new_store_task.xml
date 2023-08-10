@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -36,7 +37,7 @@
                     android:fontFamily="@font/poppins_bold"
                     android:text="Add Store"
                     android:textColor="@color/text"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>
@@ -46,15 +47,25 @@
                 android:layout_height="wrap_content"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
-                android:layout_marginHorizontal="15dp"
+                android:layout_marginHorizontal="10dp"
                 android:background="@drawable/delete_outline_rounded"
                 android:contentDescription="Delete product"
+                tools:ignore="HardcodedText,TouchTargetSizeCheck" />
+            <ImageButton
+                android:id="@+id/infoBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/info_btn"
+                android:contentDescription="Sock info"
                 tools:ignore="HardcodedText,TouchTargetSizeCheck" />
             <ImageButton
                 android:id="@+id/closeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
+                android:layout_marginHorizontal="15dp"
                 android:background="@drawable/cancel_btn"
                 android:contentDescription="Close"
                 android:minWidth="48dp"

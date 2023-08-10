@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/primaryBg"
     android:gravity="center"
-    tools:context=".Home.HomeSubCategory.ToOrder">
+    tools:context=".home.homeSubCategory.ToOrder">
 
     <RelativeLayout
         android:layout_width="match_parent"

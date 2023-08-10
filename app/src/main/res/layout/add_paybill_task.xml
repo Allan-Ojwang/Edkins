@@ -51,7 +51,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:backgroundTint="@color/text"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edit_text"
         android:hint="Enter till name"
         android:minHeight="48dp"
         android:paddingHorizontal="20dp"
@@ -60,15 +61,18 @@
         app:layout_constraintBottom_toTopOf="@+id/evTillPay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="Autofill,HardcodedText,TextFields,VisualLintTextFieldSize" />
+        tools:ignore="HardcodedText,VisualLintTextFieldSize"
+        android:importantForAutofill="no"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/evTillPay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:backgroundTint="@color/text"
+        android:background="@drawable/edit_text"
         android:hint="Enter till number"
+        android:importantForAutofill="no"
         android:textColorHint="@color/text"
         android:minHeight="48dp"
         android:paddingHorizontal="20dp"
@@ -76,15 +80,17 @@
         app:layout_constraintBottom_toTopOf="@+id/evAccount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="Autofill,HardcodedText,TextFields,VisualLintTextFieldSize" />
+        tools:ignore="HardcodedText,VisualLintTextFieldSize"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/evAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:backgroundTint="@color/text"
+        android:background="@drawable/edit_text"
         android:hint="Enter account number"
+        android:autofillHints="Enter account number"
         android:textColorHint="@color/text"
         android:minHeight="48dp"
         android:paddingHorizontal="20dp"
@@ -93,7 +99,8 @@
         app:layout_constraintBottom_toTopOf="@id/lowerLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="Autofill,HardcodedText,TextFields,VisualLintTextFieldSize" />
+        tools:ignore="HardcodedText,VisualLintTextFieldSize"
+        android:inputType="text" />
 
 
     <LinearLayout
@@ -109,8 +116,9 @@
             android:id="@+id/saveBtn"
             android:layout_width="120dp"
             android:layout_height="60dp"
-            android:layout_marginVertical="40dp"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
             android:backgroundTint="@color/cardBg"
             android:textSize="20sp"
             android:fontFamily="@font/poppins_extrabold"
@@ -122,7 +130,8 @@
             android:id="@+id/deleteBtn"
             android:layout_width="120dp"
             android:layout_height="60dp"
-            android:layout_marginVertical="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
             android:layout_marginHorizontal="20dp"
             android:backgroundTint="@color/red"
             android:textSize="20sp"

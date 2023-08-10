@@ -6,13 +6,29 @@
     android:layout_height="match_parent"
     android:background="@drawable/pop_up_bg">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter details of the worker"
+        android:paddingTop="10dp"
+        android:layout_marginVertical="20dp"
+        android:textColor="@color/text"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/evName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText" />
+
     <EditText
         android:id="@+id/evName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:backgroundTint="@color/text"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:autofillHints="Write the name"
+        android:background="@drawable/edit_text"
         android:hint="Write the name"
+        android:inputType="text"
         android:minHeight="48dp"
         android:paddingHorizontal="20dp"
         android:textColor="@color/text"
@@ -20,15 +36,16 @@
         app:layout_constraintBottom_toTopOf="@+id/evIdNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="Autofill,HardcodedText,TextFields,VisualLintTextFieldSize" />
+        tools:ignore="HardcodedText,VisualLintTextFieldSize" />
 
     <EditText
         android:id="@+id/evIdNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:backgroundTint="@color/text"
+        android:background="@drawable/edit_text"
         android:hint="Write the ID number"
+        android:autofillHints="Write the ID number"
         android:inputType="number"
         android:minHeight="48dp"
         android:paddingHorizontal="20dp"
@@ -37,15 +54,16 @@
         app:layout_constraintBottom_toTopOf="@+id/evNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="Autofill,HardcodedText,TextFields,VisualLintTextFieldSize" />
+        tools:ignore="HardcodedText,VisualLintTextFieldSize" />
 
     <EditText
         android:id="@+id/evNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:backgroundTint="@color/text"
+        android:background="@drawable/edit_text"
         android:hint="Write the phone number"
+        android:autofillHints="Write the phone number"
         android:inputType="number"
         android:textColorHint="@color/text"
         android:minHeight="48dp"
@@ -54,15 +72,15 @@
         app:layout_constraintBottom_toTopOf="@id/saveBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="Autofill,HardcodedText,TextFields,VisualLintTextFieldSize" />
+        tools:ignore="HardcodedText,VisualLintTextFieldSize" />
 
     <Button
         android:id="@+id/saveBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="40dp"
-        android:backgroundTint="@color/black"
-        android:textColor="@color/white"
+        android:layout_marginVertical="20dp"
+        android:backgroundTint="@color/cardBg"
+        android:textColor="@color/text"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
