@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
@@ -41,7 +42,7 @@ public class ToOrderSub extends AppCompatActivity {
     private Long orderId;
 
     private int adapPos,day,year;
-    private  String toOrderStatus,month;
+    private  String toOrderStatus,month,itemListText;
     private Integer numbOfStatus,totalOrder ;
     private static List<ToOrderListModel> orderNotes = new ArrayList<>();
 
@@ -56,6 +57,8 @@ public class ToOrderSub extends AppCompatActivity {
         ImageButton shareBtn = findViewById(R.id.shareBtn);
         ImageButton addBtn = findViewById(R.id.addBtn);
         TextView orderNo = findViewById(R.id.orderNo);
+
+        StringBuilder itemListBuilder = new StringBuilder();
 
 
         orderId = getIntent().getLongExtra("orderId", 0);
@@ -78,19 +81,26 @@ public class ToOrderSub extends AppCompatActivity {
 
 
         recyclerView.setAdapter(toOrderListAdapter);
-        mainViewModel.getToOrderListData(orderId).removeObservers(this);
 
-        mainViewModel.getToOrderListData(orderId).observe(this, new Observer<List<ToOrderListModel>>() {
+
+        mainViewModel.getToOrderListData(orderId).observeForever(new Observer<List<ToOrderListModel>>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onChanged(List<ToOrderListModel> toOrderListModels) {
                 // Update the orderNotes list with the new data
                 orderNotes.clear();
                 orderNotes.addAll(toOrderListModels);
-
                 toOrderListAdapter.notifyDataSetChanged();
+
+                for (ToOrderListModel order : toOrderListModels) {
+                    String item = order.getItem();
+                    itemListBuilder.append(item).append("\n");
+                }
+                itemListText = itemListBuilder.toString();
+
             }
         });
+
 
         MediatorLiveData<Pair<Integer, Integer>> mediatorLiveData = new MediatorLiveData<>();
 
@@ -158,7 +168,7 @@ public class ToOrderSub extends AppCompatActivity {
 
         backBtn.setOnClickListener(v -> finish());
 
-        shareBtn.setOnClickListener(v -> shareItemListToWhatsApp(this));
+        shareBtn.setOnClickListener(v -> shareItemListToWhatsApp(this,this));
 
         saveBtn.setOnClickListener(v -> {
             List<ToOrderListModel> orderList = toOrderListAdapter.getOrderNotes();
@@ -303,65 +313,21 @@ public class ToOrderSub extends AppCompatActivity {
         return yearDiff * 365 + monthDiff * 30 + dayDiff;
     }
 
-    private void shareItemListToWhatsApp(Context context) {
+    private void shareItemListToWhatsApp(Context context, LifecycleOwner lifecycleOwner) {
 
-        StringBuilder itemListBuilder = new StringBuilder();
-        mainViewModel.getToOrderListData(orderId).removeObservers(this);
-        mainViewModel.getToOrderListData(orderId).observeForever( new Observer<List<ToOrderListModel>>() {
-            @Override
-            public void onChanged(List<ToOrderListModel> toOrderListModels) {
-                for (ToOrderListModel order : toOrderListModels) {
-                    String item = order.getItem();
-                    itemListBuilder.append(item).append("\n");
-                }
-                String itemListText = itemListBuilder.toString();
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, itemListText);
 
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_TEXT, itemListText);
+        shareIntent.setPackage("com.whatsapp");
 
-//                PackageManager packageManager = context.getPackageManager();
-//                List<ResolveInfo> resolveInfoList = packageManager.queryIntentActivities(shareIntent, 0);
-//
-//                if (!resolveInfoList.isEmpty()) {
-//                    // Create a chooser dialog to present the available sharing options to the user
-//                    Intent chooserIntent = Intent.createChooser(shareIntent, "Share via...");
-//
-//                    // Check if the user has WhatsApp installed
-//                    boolean whatsappInstalled = false;
-//                    for (ResolveInfo resolveInfo : resolveInfoList) {
-//                        String packageName = resolveInfo.activityInfo.packageName;
-//                        if (packageName.equals("com.whatsapp")) {
-//                            whatsappInstalled = true;
-//                            break;
-//                        }
-//                    }
-//
-//                    // If WhatsApp is installed, set the package name to restrict the sharing intent to WhatsApp
-//                    if (whatsappInstalled) {
-//                        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{shareIntent});
-//                        chooserIntent.putExtra(Intent.EXTRA_EXCLUDE_COMPONENTS, new ComponentName[]{new ComponentName("com.whatsapp.w4b", "com.whatsapp.w4b.ContactPicker")}); // Optional: Exclude WhatsApp Business
-//                    }
-//
-//                    // Start the chooser dialog
-//                    context.startActivity(chooserIntent);
-//                } else {
-//                    // Handle the case where no apps can handle the share intent
-//                    Toast.makeText(context, "No apps available to share the item list.", Toast.LENGTH_LONG).show();
-//                }
-                shareIntent.setPackage("com.gbwhatsapp");
-
-                try {
-                    context.startActivity(shareIntent);
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Uri playStoreUri = Uri.parse("market://details?id=com.whatsapp");
-                    Intent playStoreIntent = new Intent(Intent.ACTION_VIEW, playStoreUri);
-                    context.startActivity(playStoreIntent);
-                }
-
-
-            }
-        });
+        try {
+            context.startActivity(shareIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            Uri playStoreUri = Uri.parse("market://details?id=com.whatsapp");
+            Intent playStoreIntent = new Intent(Intent.ACTION_VIEW, playStoreUri);
+            context.startActivity(playStoreIntent);
+        }
 
     }
 }
