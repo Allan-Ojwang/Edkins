@@ -10,6 +10,7 @@ import androidx.room.Update;
 import com.ojwang.edkins.home.homeSubCategory.model.StockInModel;
 import com.ojwang.edkins.home.homeSubCategory.model.StockModel;
 import com.ojwang.edkins.home.homeSubCategory.model.StockOutModel;
+import com.ojwang.edkins.home.homeSubCategory.model.StockWithQuantityModel;
 
 import java.util.List;
 
@@ -44,6 +45,20 @@ public interface StockDao {
 
     @Query("SELECT * FROM stock_in_table WHERE store_id = :storeId AND good_id = :stockId")
     LiveData<List<StockInModel>> getStockInData(int storeId, int stockId);
+
+    @Query("SELECT stock_table.stockId,stock_table.productName,stock_table.sellingPrice,"+
+            "COALESCE(SUM(stock_in_table.quantity),0) - COALESCE(SUM(stock_out_table.quantity),0) AS totalQuantity" +
+            " FROM stock_table "+
+            "LEFT JOIN stock_in_table ON stock_table.stockId = stock_in_table.good_id" + " " +
+            "LEFT JOIN STOCK_OUT_TABLE ON stock_table.stockId = stock_out_table.good_id" + " " +
+            "GROUP BY stock_table.stockId,stock_table.productName,stock_table.sellingPrice ")
+    LiveData<List<StockWithQuantityModel>> getStockWithQuantity();
+
+    @Query("SELECT SUM(quantity) FROM stock_in_table WHERE good_id = :stockId AND store_id = :storeId")
+    int getTotalStockInQuantity(long stockId, long storeId);
+    @Query("SELECT SUM(quantity) FROM stock_out_table WHERE good_id = :stockId AND store_id = :storeId")
+    int getTotalStockOutQuantity(long stockId, long storeId);
+
 
     @Query("SELECT * FROM stock_out_table WHERE store_id = :storeId AND good_id = :stockId")
     LiveData<List<StockOutModel>> getStockOutData(int storeId, int stockId);

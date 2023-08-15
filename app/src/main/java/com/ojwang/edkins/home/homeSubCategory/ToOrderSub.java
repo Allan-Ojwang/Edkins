@@ -166,7 +166,24 @@ public class ToOrderSub extends AppCompatActivity {
             toOrderListAdapter.notifyItemInserted(orderNotes.size() - 1);
         });
 
-        backBtn.setOnClickListener(v -> finish());
+        backBtn.setOnClickListener(v -> {
+            ConfirmAlertDialog confirmAlertDialog = new ConfirmAlertDialog(ToOrderSub.this, "Are you sure you want to go back. Ensure that the data is already saved", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            finish();
+                            break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            //Do nothing
+                            break;
+                    }
+
+                }
+            });
+            confirmAlertDialog.showDialog();
+
+        });
 
         shareBtn.setOnClickListener(v -> shareItemListToWhatsApp(this,this));
 

@@ -10,14 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ojwang.edkins.R;
-import com.ojwang.edkins.home.homeSubCategory.model.StockModel;
+import com.ojwang.edkins.home.homeSubCategory.model.StockWithQuantityModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchHolder> {
 
-    private static List<StockModel> stockModels = new ArrayList<>();
+    private static List<StockWithQuantityModel> stockModels = new ArrayList<>();
     private static OnItemClickListener listener;
 
     @NonNull
@@ -29,10 +29,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchHold
 
     @Override
     public void onBindViewHolder(@NonNull SearchHolder holder, int position) {
-        StockModel currentStock = stockModels.get(position);
+        StockWithQuantityModel currentStock = stockModels.get(position);
         holder.name.setText(currentStock.getProductName());
+        holder.quantity.setText(String.valueOf(currentStock.getTotalQuantity()));
         holder.buyingPrice.setText(String.format("KSH %s",currentStock.getSellingPrice()));
-
     }
 
     @Override
@@ -41,26 +41,24 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchHold
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setStockModels(List<StockModel> stockModels) {
+    public void setStockModels(List<StockWithQuantityModel> stockModels) {
         SearchAdapter.stockModels = stockModels;
         notifyDataSetChanged();
     }
 
-    public StockModel getStockAt(int postion){
+    public StockWithQuantityModel getStockAt(int postion){
         return stockModels.get(postion);
     }
 
     public static class SearchHolder extends RecyclerView.ViewHolder {
         private final TextView name;
         private final TextView buyingPrice;
-        private final TextView stockNumb;
         private final TextView quantity;
 
         public SearchHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.stockName);
             buyingPrice = itemView.findViewById(R.id.stockSp);
-            stockNumb = itemView.findViewById(R.id.stockNumb);
             quantity = itemView.findViewById(R.id.stockQuantity);
 
 
@@ -73,7 +71,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchHold
         }
     }
     public interface OnItemClickListener{
-        void OnClick(StockModel stockModel, int position);
+        void OnClick(StockWithQuantityModel stockModel, int position);
     }
     public void setOnClickListener(OnItemClickListener listener) {
         SearchAdapter.listener = listener;

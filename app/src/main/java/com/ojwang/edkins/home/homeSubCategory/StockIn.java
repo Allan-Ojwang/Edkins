@@ -3,6 +3,7 @@ package com.ojwang.edkins.home.homeSubCategory;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -100,8 +101,8 @@ public class StockIn extends AppCompatActivity {
         if (intent != null){
             String pName = intent.getStringExtra("PRODUCT-NAME");
             String sName = intent.getStringExtra("STORE-NAME");
-            storeId = intent.getIntExtra("PRODUCT-ID",0);
-            stockId = intent.getIntExtra("STORE-ID",0);
+            stockId = intent.getIntExtra("PRODUCT-ID",0);
+            storeId = intent.getIntExtra("STORE-ID",0);
             String setDate = intent.getStringExtra("DATE");
 
             evDate.setText(setDate);

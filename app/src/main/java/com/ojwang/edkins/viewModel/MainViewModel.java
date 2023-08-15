@@ -12,6 +12,7 @@ import com.ojwang.edkins.home.homeSubCategory.model.PaybillModel;
 import com.ojwang.edkins.home.homeSubCategory.model.StockInModel;
 import com.ojwang.edkins.home.homeSubCategory.model.StockModel;
 import com.ojwang.edkins.home.homeSubCategory.model.StockOutModel;
+import com.ojwang.edkins.home.homeSubCategory.model.StockWithQuantityModel;
 import com.ojwang.edkins.home.homeSubCategory.model.StoreModel;
 import com.ojwang.edkins.home.homeSubCategory.model.ToOrderListModel;
 import com.ojwang.edkins.home.homeSubCategory.model.ToOrderModel;
@@ -31,6 +32,7 @@ public class MainViewModel extends AndroidViewModel {
     private final LiveData<List<DebtorModel>> debtorData;
     private final LiveData<List<DebtorModel>> paidDebtorData;
     private final LiveData<List<StockModel>> stockData;
+    private final LiveData<List<StockWithQuantityModel>> stockWithQuantityData;
     private final LiveData<List<StoreModel>> storeData;
 
     public MainViewModel(@NonNull Application application) {
@@ -44,7 +46,9 @@ public class MainViewModel extends AndroidViewModel {
         paidDebtorData = mainRepo.getPaidDebtorNotes();
         toOrderData = mainRepo.getToOrderNotes();
         stockData = mainRepo.getStockData();
+        stockWithQuantityData = mainRepo.getStockWithQuantityData();
         storeData = mainRepo.getStoresNotes();
+
     }
 
     public void insertPaybill (PaybillModel paybillModel){
@@ -154,6 +158,7 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<StockModel>> getStockData(){return stockData;}
+    public LiveData<List<StockWithQuantityModel>> getStockWithQuantityData(){return stockWithQuantityData;}
     public void insertStock(StockModel stockModel) {
          mainRepo.insertStock(stockModel);
     }

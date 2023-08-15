@@ -21,6 +21,7 @@ import com.ojwang.edkins.MainActivity;
 import com.ojwang.edkins.R;
 import com.ojwang.edkins.SplashScreen;
 import com.ojwang.edkins.home.homeSubCategory.model.StockModel;
+import com.ojwang.edkins.home.homeSubCategory.model.StockWithQuantityModel;
 import com.ojwang.edkins.search.recyclerviewAdapter.SearchAdapter;
 import com.ojwang.edkins.viewModel.MainViewModel;
 
@@ -44,10 +45,16 @@ public class SearchFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-//        SearchAdapter searchAdapter = new SearchAdapter();
-//        recyclerView.setAdapter(searchAdapter);
+        SearchAdapter searchAdapter = new SearchAdapter();
+        recyclerView.setAdapter(searchAdapter);
 
-//        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        mainViewModel.getStockWithQuantityData().observe(getViewLifecycleOwner(), new Observer<List<StockWithQuantityModel>>() {
+            @Override
+            public void onChanged(List<StockWithQuantityModel> stockWithQuantityModels) {
+                searchAdapter.setStockModels(stockWithQuantityModels);
+            }
+        });
 //        mainViewModel.getStockData().observe(getViewLifecycleOwner(), new Observer<List<StockModel>>() {
 //            @Override
 //            public void onChanged(List<StockModel> stockModels) {

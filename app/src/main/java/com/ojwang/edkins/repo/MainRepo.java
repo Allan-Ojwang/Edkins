@@ -20,6 +20,7 @@ import com.ojwang.edkins.home.homeSubCategory.model.PaybillModel;
 import com.ojwang.edkins.home.homeSubCategory.model.StockInModel;
 import com.ojwang.edkins.home.homeSubCategory.model.StockModel;
 import com.ojwang.edkins.home.homeSubCategory.model.StockOutModel;
+import com.ojwang.edkins.home.homeSubCategory.model.StockWithQuantityModel;
 import com.ojwang.edkins.home.homeSubCategory.model.StoreModel;
 import com.ojwang.edkins.home.homeSubCategory.model.ToOrderListModel;
 import com.ojwang.edkins.home.homeSubCategory.model.ToOrderModel;
@@ -55,6 +56,7 @@ public class MainRepo {
 
     private final StockDao stockDao;
     LiveData<List<StockModel>> stockData;
+    LiveData<List<StockWithQuantityModel>> stockWithQuantityData;
 
     private final StoreDao storeDao;
     LiveData<List<StoreModel>> storeData;
@@ -78,6 +80,7 @@ public class MainRepo {
         toOrderData = toOrderDao.getToOrderData();
         stockDao = db.stockDao();
         stockData = stockDao.getStockData();
+        stockWithQuantityData = stockDao.getStockWithQuantity();
         storeDao = db.storeDao();
         storeData = storeDao.getStoreData();
     }
@@ -643,6 +646,9 @@ public class MainRepo {
 
     public LiveData<List<StockModel>> searchStock(String query){
         return stockDao.searchStock(query);
+    }
+    public LiveData<List<StockWithQuantityModel>> getStockWithQuantityData(){
+        return stockWithQuantityData;
     }
 
     public LiveData<List<StockModel>> getStockData() {

@@ -22,6 +22,7 @@ import com.ojwang.edkins.home.homeSubCategory.model.PaybillModel;
 import com.ojwang.edkins.home.homeSubCategory.model.StockInModel;
 import com.ojwang.edkins.home.homeSubCategory.model.StockModel;
 import com.ojwang.edkins.home.homeSubCategory.model.StockOutModel;
+import com.ojwang.edkins.home.homeSubCategory.model.StockWithQuantityModel;
 import com.ojwang.edkins.home.homeSubCategory.model.StoreModel;
 import com.ojwang.edkins.home.homeSubCategory.model.ToOrderListModel;
 import com.ojwang.edkins.home.homeSubCategory.model.ToOrderModel;
@@ -32,7 +33,7 @@ import java.util.concurrent.FutureTask;
 
 @Database(entities = {PaybillModel.class, WorkerModel.class, CreditorModel.class, DebtorModel.class,
         WorkerDebtModel.class, ToOrderModel.class, ToOrderListModel.class, StockModel.class,
-        StoreModel.class, StockInModel.class, StockOutModel.class},version = 2,exportSchema = false)
+        StoreModel.class, StockInModel.class, StockOutModel.class, StockWithQuantityModel.class},version = 1,exportSchema = false)
 public abstract class EdkinsDb extends RoomDatabase {
     public static EdkinsDb instance;
 
