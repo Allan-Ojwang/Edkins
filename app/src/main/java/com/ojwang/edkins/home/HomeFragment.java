@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment implements DashBtnListener {
                 R.drawable.workers,
                 R.drawable.debt_tracker,
                 R.drawable.store,
-                R.drawable.stock_in,
+                R.drawable.product,
                 R.drawable.stock_out,
                 R.drawable.stock_in,
 

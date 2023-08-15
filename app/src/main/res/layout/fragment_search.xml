@@ -3,15 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".search.SearchFragment">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/stockSearch"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/search_view_bg"
+        android:layout_gravity="center_horizontal"
+        app:queryHint="Search product name"
+        app:iconifiedByDefault="false"/>
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Search fragment"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:text="SECTION UNDER CONSTRUCTION"
+        android:paddingTop="400dp"
+        android:fontFamily="@font/poppins_bold"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:gravity="center"/>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/maintenance" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchStockRecycleView"
+        android:layout_marginTop="-100dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:listitem="@layout/search_stock_card"/>
 </FrameLayout>

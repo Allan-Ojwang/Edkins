@@ -3,15 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".setting.SettingFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Setting fragment"
+        android:text="SECTION UNDER CONSTRUCTION"
+        android:paddingTop="400dp"
+        android:fontFamily="@font/poppins_bold"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:gravity="center"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/maintenance" />
 
 </FrameLayout>

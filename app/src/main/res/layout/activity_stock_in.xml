@@ -149,7 +149,7 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/stock_in"
+                android:background="@drawable/product"
                 android:contentDescription="Product image"
                 tools:ignore="HardcodedText,TouchTargetSizeCheck" />
         </FrameLayout>
